@@ -1,0 +1,52 @@
+<section class="login-page" aria-labelledby="login-title">
+  <div class="login-container">
+    <div class="brand" role="img" aria-label="Paulo Vieira">
+      <span class="brand-mark" aria-hidden="true">PV<span>.</span></span>
+      <span class="brand-name" aria-hidden="true">Paulo Vieira</span>
+    </div>
+    <header>
+      <h1 id="login-title">Acessar o painel</h1>
+      <p>Entre com sua conta para gerenciar o portfólio.</p>
+    </header>
+    <form
+      [formGroup]="form"
+      (ngSubmit)="login()"
+      aria-labelledby="login-title"
+      [attr.aria-busy]="busy()"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>E-mail</mat-label>
+        <input matInput type="email" autocomplete="username" formControlName="email" />
+        @if (form.controls.email.hasError('required')) {
+          <mat-error>Informe seu e-mail.</mat-error>
+        } @else if (form.controls.email.hasError('email')) {
+          <mat-error>Informe um e-mail válido.</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Senha</mat-label>
+        <input
+          matInput
+          type="password"
+          autocomplete="current-password"
+          formControlName="password"
+        />
+        @if (form.controls.password.hasError('required')) {
+          <mat-error>Informe sua senha.</mat-error>
+        }
+      </mat-form-field>
+      @if (error()) {
+        <p class="login-error" role="alert">{{ error() }}</p>
+      }
+      <button class="login-submit" type="submit" mat-flat-button [disabled]="busy()">
+        {{ busy() ? 'Entrando…' : 'Entrar' }}
+      </button>
+      @if (busy()) {
+        <div class="loading-status login-progress" role="status">
+          <mat-spinner [diameter]="24" [strokeWidth]="3" aria-hidden="true" />
+          <span>Verificando acesso…</span>
+        </div>
+      }
+    </form>
+  </div>
+</section>

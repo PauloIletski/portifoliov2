@@ -1,0 +1,197 @@
+:host
+  display: block
+
+.projects-page
+  padding: var(--page-block-start) 0 var(--page-block-end)
+
+.page-heading
+  margin-bottom: 3rem
+  h1
+    margin: 0 0 1.5rem
+    font-size: var(--font-display-size)
+    font-weight: var(--font-display-weight)
+    letter-spacing: var(--font-display-tracking)
+    line-height: var(--font-display-leading)
+  p
+    max-width: 40ch
+    margin: 0
+    color: var(--color-text-muted)
+    font-size: 1.1875rem
+    line-height: 1.7
+
+.featured
+  display: grid
+  grid-template-columns: 1.15fr 1fr
+  gap: 3rem
+  align-items: center
+  margin-bottom: 4rem
+
+.project-preview
+  min-width: 0
+
+.preview-scene
+  display: block
+  width: 100%
+  height: auto
+  overflow: hidden
+  background: var(--color-surface)
+  border-radius: var(--radius-md)
+
+.preview-caption, .featured-label, .listing-stack, .section-heading > span
+  color: var(--color-text-muted)
+  font-size: 0.875rem
+  line-height: 1.6
+
+.preview-caption
+  margin: 0.75rem 0 0
+
+.featured-label
+  margin: 0 0 1.25rem
+
+.project-identity
+  display: flex
+  align-items: center
+  gap: 1rem
+  h2
+    margin: 0 0 0.375rem
+    font-size: clamp(1.5rem, 2.8vw, 2rem)
+    font-weight: 600
+    letter-spacing: -0.035em
+  p
+    margin: 0
+    color: var(--color-text-muted)
+
+.app-icon
+  flex-shrink: 0
+  font-size: 2rem
+  font-weight: 750
+  letter-spacing: -0.12em
+  padding-right: 0.15em
+  span
+    color: var(--color-accent)
+
+.project-summary, .details-grid p, .upcoming p
+  max-width: 45ch
+  color: var(--color-text-muted)
+  line-height: 1.7
+
+.project-summary
+  margin: 1.5rem 0
+
+.technology-list
+  display: flex
+  flex-wrap: wrap
+  gap: 0.5rem 1rem
+  padding: 0
+  margin: 0 0 1.75rem
+  list-style: none
+  color: var(--color-text-muted)
+  font-size: 0.875rem
+
+.project-actions
+  display: flex
+  flex-wrap: wrap
+  gap: 0.875rem
+  a
+    min-height: 48px
+    padding-inline: 1.5rem
+
+.section-heading
+  display: flex
+  align-items: baseline
+  justify-content: space-between
+  flex-wrap: wrap
+  gap: 0.75rem
+  margin-bottom: 1.5rem
+  h2
+    margin: 0
+    font-size: 1.5rem
+    font-weight: 600
+    letter-spacing: -0.025em
+
+.collection-grid
+  display: grid
+  grid-template-columns: 1fr 1fr
+  gap: 2rem
+
+.project-listing, .upcoming
+  display: flex
+  align-items: center
+  gap: 1rem
+  min-width: 0
+  padding: 1rem 0
+  h3
+    margin: 0 0 0.5rem
+    font-size: 1rem
+    font-weight: 600
+  p
+    margin: 0
+    color: var(--color-text-muted)
+    font-size: 0.9375rem
+    line-height: 1.7
+
+.project-listing
+  border-block: 1px solid var(--color-border)
+  border-radius: 3px
+  text-decoration: none
+  &:hover h3
+    text-decoration: underline
+    text-underline-offset: 5px
+
+.listing-action
+  margin-left: auto
+  color: var(--color-accent)
+  font-size: 0.875rem
+
+.upcoming-icon
+  color: var(--color-text-muted)
+  font-size: 2rem
+  font-weight: 300
+
+.project-details
+  margin-top: 3rem
+  padding-top: 2rem
+  border-top: 1px solid var(--color-border)
+  scroll-margin-top: 2rem
+
+.details-grid
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
+  gap: 2rem
+  h3
+    margin: 0 0 0.75rem
+    font-size: 1rem
+    font-weight: 600
+  p
+    margin: 0
+    font-size: 0.9375rem
+
+@media (max-width: 959px)
+  .featured, .collection-grid, .details-grid
+    grid-template-columns: 1fr
+    gap: 2rem
+  .project-preview
+    max-width: 680px
+
+@media (max-width: 767px)
+  .projects-page
+    padding: var(--page-block-start) 0 var(--page-block-end)
+  .page-heading h1
+    font-size: var(--font-display-size)
+    line-height: var(--font-display-leading)
+  .page-heading p
+    font-size: 1.0625rem
+
+@media (max-width: 479px)
+  .project-actions
+    flex-direction: column
+    align-items: stretch
+  .project-listing
+    flex-wrap: wrap
+  .listing-action
+    margin-left: 0
+    width: 100%
+
+
+.collection
+  margin-bottom: 3rem

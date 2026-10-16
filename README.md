@@ -57,3 +57,7 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Supabase e administração
+
+Consulte [docs/supabase.md](docs/supabase.md) para configurar o projeto, aplicar migrations e seed, autorizar o administrador e acessar `/admin/login`. A configuração pública usa `.env.example`; nenhum segredo deve ser enviado ao frontend.

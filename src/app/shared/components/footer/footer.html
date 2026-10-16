@@ -1,0 +1,30 @@
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-main">
+      <section class="contact" aria-labelledby="footer-contact-title">
+        <h2 id="footer-contact-title" i18n="@@footer.contactTitle">Vamos conversar sobre seu próximo projeto.</h2>
+        <a mat-flat-button routerLink="/contact" i18n="@@footer.contactAction">Entrar em contato</a>
+      </section>
+
+      <div class="footer-details">
+        <a class="signature" routerLink="/" aria-label="Paulo Vieira - Início" i18n-aria-label="@@header.home">
+          <span class="signature-mark" aria-hidden="true">PV<span>.</span></span>
+          <span aria-hidden="true">Paulo Vieira</span>
+        </a>
+        <p class="role" i18n="@@home.role">Engenheiro de Software</p>
+        <nav aria-label="Navegação do rodapé" i18n-aria-label="@@footer.navigation">
+          <ul class="footer-links">
+            <li><a routerLink="/projects" i18n="@@nav.projects">Projetos</a></li>
+            <li><a routerLink="/experience" i18n="@@nav.experience">Experiência</a></li>
+            <li><a routerLink="/about" i18n="@@nav.about">Sobre</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="copyright">© {{ year }} Paulo Vieira</p>
+      <a class="back-link" href="#main-content" i18n="@@footer.back">Voltar ao conteúdo</a>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,55 @@
+
+:root {
+  // Colors
+  --color-background: #0b1020;
+  --color-surface: #172238;
+  --color-primary: #477bff;
+  --color-accent: #22c6ae;
+  --color-text: #f5f7fa;
+  --color-text-muted: #b5c1d4;
+
+  // Spacing
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  // Layout
+  --container-max-width: 1280px;
+  --header-height: 80px;
+
+  // Radius
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+}
+
+// Shared layout and typography: Home is the visual reference.
+:root {
+  --color-border: #29374d;
+  --page-gutter: 2rem;
+  --page-block-start: 3rem;
+  --page-block-end: 4rem;
+  --font-display-size: clamp(3rem, 5.7vw, 5.25rem);
+  --font-display-weight: 650;
+  --font-display-tracking: -0.055em;
+  --font-display-leading: 1.04;
+}
+
+@media (max-width: 1023px) {
+  :root { --font-display-size: clamp(3rem, 6.4vw, 4.5rem); }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --page-gutter: 1.25rem;
+    --page-block-start: 2rem;
+    --page-block-end: 3rem;
+    --font-display-size: clamp(2.75rem, 9.4vw, 4.25rem);
+    --font-display-leading: 1.08;
+  }
+}

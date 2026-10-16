@@ -1,0 +1,99 @@
+<app-editor-shell
+  title="Projetos"
+  singular="projeto"
+  description="Cadastre os dados exibidos na coleção e no destaque do projeto. Preencha os dois idiomas para publicar ou salve como rascunho para continuar depois."
+>
+  <div class="languages">
+    @for (locale of state.locales; track locale) {
+      <fieldset>
+        <legend>{{ locale === 'pt-BR' ? 'Português' : 'English' }}</legend>
+        <h4>Apresentação</h4>
+        <app-editor-field
+          label="Nome"
+          [placeholder]="locale === 'pt-BR' ? 'Ex.: Portfólio pessoal' : 'Ex.: Personal portfolio'"
+          [control]="state.control(locale, 'name')"
+        />
+        <app-editor-field
+          label="Autor"
+          placeholder="Ex.: Paulo Vieira"
+          [control]="state.control(locale, 'author')"
+        />
+        <app-editor-field
+          label="Sigla"
+          placeholder="Ex.: PV"
+          hint="Identificação exibida no ícone do projeto."
+          [control]="state.control(locale, 'mark')"
+        />
+        <app-editor-field
+          label="Categoria"
+          [placeholder]="locale === 'pt-BR' ? 'Ex.: Aplicação web' : 'Ex.: Web application'"
+          [control]="state.control(locale, 'category')"
+        />
+        <app-editor-field
+          label="Resumo"
+          hint="Breve descrição exibida na área de destaque."
+          [control]="state.control(locale, 'summary')"
+          [multiline]="true"
+        />
+        <app-editor-field
+          label="Tecnologias (uma por linha)"
+          placeholder="Angular 21&#10;TypeScript&#10;Material&#10;Motion"
+          [control]="state.control(locale, 'technologies')"
+          [multiline]="true"
+        />
+        <app-editor-field
+          label="Stack da coleção"
+          placeholder="Ex.: Angular / TypeScript"
+          [control]="state.control(locale, 'collectionStack')"
+        />
+        <h4>Demonstração</h4>
+        <app-editor-field
+          label="Link da demonstração"
+          placeholder="/ ou https://seu-projeto.com"
+          [control]="state.control(locale, 'demoRoute')"
+        />
+        <app-editor-field
+          label="Texto do link"
+          [placeholder]="
+            locale === 'pt-BR' ? 'Ex.: Explorar o portfólio' : 'Ex.: Explore the portfolio'
+          "
+          [control]="state.control(locale, 'demoLabel')"
+        />
+        <h4>Detalhes</h4>
+        <app-editor-field
+          label="Título dos detalhes"
+          [placeholder]="
+            locale === 'pt-BR' ? 'Ex.: Por dentro do portfólio' : 'Ex.: Inside the portfolio'
+          "
+          [control]="state.control(locale, 'detailsTitle')"
+        />
+        <app-project-details [control]="state.control(locale, 'details')" />
+        <app-editor-field
+          label="Descrição da imagem"
+          [control]="state.control(locale, 'imageAlt')"
+        />
+      </fieldset>
+    }
+  </div>
+  <section class="project-image" aria-labelledby="image-title">
+    <h4 id="image-title">Imagem do projeto</h4>
+    @if (state.imagePreview(); as src) {
+      <img class="image-preview" [src]="src" alt="Prévia da imagem selecionada" /><button
+        type="button"
+        mat-stroked-button
+        [disabled]="state.busy()"
+        (click)="state.clearImage()"
+      >
+        Remover imagem do projeto
+      </button>
+    }
+    <label for="project-image">JPEG, PNG ou WebP, até 5 MB</label
+    ><input
+      id="project-image"
+      type="file"
+      accept="image/jpeg,image/png,image/webp"
+      [disabled]="state.busy()"
+      (change)="state.upload($event)"
+    />
+  </section>
+</app-editor-shell>

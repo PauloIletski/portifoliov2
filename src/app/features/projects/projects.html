@@ -1,0 +1,157 @@
+<section class="projects-page" aria-labelledby="projects-title" appMotionEnter>
+  <header class="page-heading">
+    <h1 id="projects-title" i18n="@@projects.title">Projetos</h1>
+    <p i18n="@@projects.intro">Ideias que ganham forma em produtos digitais.</p>
+  </header>
+  <app-content-status
+    [loading]="supplied() === undefined && remote.loading()"
+    [error]="supplied() === undefined && remote.error()"
+    [english]="english"
+    (retry)="remote.reload()"
+  />
+
+  <section class="collection" aria-labelledby="collection-title">
+    <div class="section-heading">
+      <h2 id="collection-title" i18n="@@projects.collection">Coleção de projetos</h2>
+      @if (projects().length === 1) {
+        <span i18n="@@projects.count">1 projeto</span>
+      } @else {
+        <span i18n="@@projects.total">{{ projects().length }} projetos</span>
+      }
+    </div>
+    <div class="collection-grid">
+      @for (item of projects(); track item.id) {
+        <a
+          class="project-listing"
+          href="#featured-project"
+          role="button"
+          [attr.aria-pressed]="item.id === selectedProject()?.id"
+          aria-controls="featured-project"
+          (click)="selectProject($event, item.id)"
+          (keydown.space)="selectProject($event, item.id)"
+        >
+          <span class="app-icon app-icon-small" aria-hidden="true"
+            >{{ item.mark }}<span>.</span></span
+          >
+          <div>
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.category }}</p>
+            <span class="listing-stack">{{ item.collectionStack }}</span>
+          </div>
+          <span class="listing-action" i18n="@@projects.discover">Conhecer</span>
+        </a>
+      }
+      <div class="upcoming">
+        <span class="upcoming-icon" aria-hidden="true">+</span>
+        <div>
+          <h3 i18n="@@projects.upcoming">A coleção continua</h3>
+          <p i18n="@@projects.upcomingText">
+            Novos projetos serão adicionados aqui, com demonstrações e detalhes da construção.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  @if (selectedProject(); as project) {
+    <article id="featured-project" class="featured" aria-labelledby="featured-title">
+      <div class="project-preview">
+        @if (project.image; as image) {
+          <img
+            class="preview-scene"
+            [ngSrc]="image.src"
+            [width]="image.width"
+            [height]="image.height"
+            [alt]="image.alt"
+          />
+        } @else {
+          <svg class="preview-scene" viewBox="0 0 560 350" fill="none" aria-hidden="true">
+            <text x="30" y="48" fill="#f5f7fa" font-size="24" font-weight="700">
+              {{ project.mark }}
+              <tspan fill="#22c6ae">.</tspan>
+            </text>
+            <path d="M30 115h65" stroke="#b5c1d4" stroke-width="4" />
+            <path d="M30 148h250m-250 30h240m-240 30h170" stroke="#f5f7fa" stroke-width="16" />
+            <path d="M30 242h190m-190 10h160" stroke="#b5c1d4" stroke-width="3" />
+            <rect x="30" y="277" width="115" height="24" rx="12" fill="#477bff" />
+            <ellipse
+              cx="424"
+              cy="186"
+              rx="133"
+              ry="32"
+              stroke="#779dce"
+              transform="rotate(-28 424 186)"
+            />
+            <circle cx="424" cy="186" r="84" fill="url(#project-preview-planet)" />
+            <circle cx="490" cy="83" r="2" fill="#b9d9ff" />
+            <defs>
+              <radialGradient id="project-preview-planet" cx="28%" cy="22%" r="80%">
+                <stop stop-color="#b9d9ff" />
+                <stop offset="0.3" stop-color="#477bff" />
+                <stop offset="0.65" stop-color="#173c80" />
+                <stop offset="1" stop-color="#070e1b" />
+              </radialGradient>
+            </defs>
+          </svg>
+        }
+        <p class="preview-caption" i18n="@@projects.preview">Prévia ilustrativa da interface</p>
+      </div>
+      <div class="featured-copy">
+        <p class="featured-label" i18n="@@projects.featured">Em destaque</p>
+        <div class="project-identity">
+          <span class="app-icon" aria-hidden="true">{{ project.mark }}<span>.</span></span>
+          <div>
+            <h2 id="featured-title" aria-live="polite" aria-atomic="true">{{ project.name }}</h2>
+            <p>{{ project.author }}</p>
+          </div>
+        </div>
+        <p class="project-summary">{{ project.summary }}</p>
+        <ul
+          class="technology-list"
+          aria-label="Tecnologias"
+          i18n-aria-label="@@projects.technologies"
+        >
+          @for (technology of project.technologies; track technology) {
+            <li>{{ technology }}</li>
+          }
+        </ul>
+        <div class="project-actions">
+          @if (project.demoRoute.startsWith('/')) {
+            <a mat-flat-button [routerLink]="project.demoRoute">{{ project.demoLabel }}</a>
+          } @else {
+            <a
+              mat-flat-button
+              [href]="project.demoRoute"
+              target="_blank"
+              rel="noopener noreferrer"
+              >{{ project.demoLabel }}</a
+            >
+          }
+          <a mat-stroked-button href="#portfolio-details" i18n="@@projects.details">Ver detalhes</a>
+        </div>
+      </div>
+    </article>
+    <section
+      class="project-details"
+      id="portfolio-details"
+      tabindex="-1"
+      aria-labelledby="details-title"
+    >
+      <div class="section-heading">
+        <h2 id="details-title">{{ project.detailsTitle }}</h2>
+      </div>
+      <div class="details-grid">
+        @for (detail of project.details; track detail.title) {
+          <article>
+            <h3>{{ detail.title }}</h3>
+            <p>{{ detail.description }}</p>
+          </article>
+        }
+      </div>
+    </section>
+  } @else if (supplied() !== undefined || (!remote.loading() && !remote.error())) {
+    <p i18n="@@projects.upcomingText">
+      Novos projetos serão adicionados aqui, com demonstrações e detalhes da construção.
+    </p>
+  }
+</section>

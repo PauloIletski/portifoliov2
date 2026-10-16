@@ -1,0 +1,10 @@
+<app-editor-shell
+  title="Contato"
+  singular="contato"
+  description="Cada registro representa um contato: um WhatsApp, e-mail ou perfil de rede social. Adicione quantos precisar e edite ou exclua cada um pela listagem. O toggle controla a exibição deste contato."
+>
+  <app-contact-fields
+    [control]="state.control('pt-BR', 'channels')"
+    [translation]="state.control('en-US', 'channels')"
+  />
+</app-editor-shell>

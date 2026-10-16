@@ -1,0 +1,132 @@
+:host
+  display: block
+  height: 100dvh
+  overflow: hidden
+  --mat-button-outlined-label-text-color: var(--color-text)
+.admin, .admin-layout
+  height: 100%
+  min-height: 0
+  color: var(--color-text)
+.admin-layout
+  display: grid
+  grid-template-columns: 260px minmax(0, 1fr)
+.section-sidebar
+  display: flex
+  flex-direction: column
+  min-height: 0
+  padding: 1.5rem 1rem
+  border-right: 1px solid var(--color-border)
+  background: var(--color-surface)
+.brand
+  display: flex
+  align-items: center
+  gap: .65rem
+  padding: .5rem .75rem 1.5rem
+  color: var(--color-text)
+  text-decoration: none
+.brand-mark
+  font-size: 1.75rem
+  font-weight: 800
+  letter-spacing: -.07em
+  span
+    color: var(--color-accent)
+.brand-name
+  font-weight: 600
+.sidebar-label
+  color: var(--color-text-muted)
+  font-size: .875rem
+  margin: 0 .75rem 1rem
+nav
+  display: grid
+  gap: .5rem
+.section-link
+  display: grid
+  gap: .35rem
+  width: 100%
+  border: 1px solid transparent
+  border-radius: .75rem
+  padding: .9rem .75rem
+  text-align: left
+  background: transparent
+  color: var(--color-text)
+  font: inherit
+  cursor: pointer
+  span
+    font-weight: 600
+  small
+    color: var(--color-text-muted)
+    line-height: 1.4
+  &:hover, &.active
+    background: var(--color-background)
+    border-color: var(--color-border)
+  &.active
+    box-shadow: inset 3px 0 var(--color-accent)
+.section-link
+  &:focus-visible
+    outline: 2px solid var(--color-accent)
+    outline-offset: 2px
+.logout
+  margin-top: auto
+.workspace
+  display: flex
+  flex-direction: column
+  min-width: 0
+  min-height: 0
+.workspace-heading
+  padding: 1.5rem clamp(1rem, 3vw, 3rem)
+  border-bottom: 1px solid var(--color-border)
+  h1
+    font-size: clamp(1.5rem, 3vw, 2.5rem)
+    letter-spacing: -.045em
+    margin: 0
+.section-content
+  flex: 1
+  min-width: 0
+  min-height: 0
+  overflow-y: auto
+  overscroll-behavior: contain
+  scrollbar-gutter: stable
+  padding: 2rem clamp(1rem, 3vw, 3rem)
+  &:focus-visible
+    outline: 2px solid var(--color-accent)
+    outline-offset: -2px
+.area-panel
+  max-width: 1100px
+  margin-inline: auto
+.area-panel[hidden]
+  display: none
+@media (max-width: 767px)
+  .admin-layout
+    grid-template-columns: 100px minmax(0, 1fr)
+  .section-sidebar
+    padding: .75rem .375rem
+  .brand
+    justify-content: center
+    padding: .25rem 0 1rem
+  .brand-name, .sidebar-label, .section-link small
+    display: none
+  nav
+    gap: .25rem
+  .section-link
+    min-height: 44px
+    padding: .65rem .25rem
+    font-size: .75rem
+    overflow-wrap: anywhere
+  .workspace-heading
+    padding: 1rem .75rem
+    h1
+      font-size: 1.25rem
+  .section-content
+    padding: 1rem .75rem
+@media (max-height: 500px)
+  .section-sidebar
+    padding-block: .5rem
+  .brand
+    padding-block: 0 .5rem
+  .sidebar-label, .section-link small
+    display: none
+  nav
+    gap: .125rem
+  .section-link
+    min-height: 36px
+    padding-block: .375rem

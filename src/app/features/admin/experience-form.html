@@ -1,0 +1,33 @@
+<app-editor-shell
+  title="Experiências"
+  singular="experiência"
+  description="Organize os cargos, períodos e atividades da sua trajetória."
+>
+  <div class="languages">
+    @for (locale of state.locales; track locale) {
+      <fieldset>
+        <legend>{{ locale === 'pt-BR' ? 'Português' : 'English' }}</legend>
+        <h4>Experiência profissional</h4>
+        <app-editor-field label="Cargo" [control]="state.control(locale, 'role')" />
+        <app-editor-field label="Empresa" [control]="state.control(locale, 'company')" />
+        <app-editor-field label="Período" [control]="state.control(locale, 'period')" />
+        <app-editor-field
+          label="Resumo"
+          [control]="state.control(locale, 'summary')"
+          [multiline]="true"
+        />
+        <h4>Atividades e tecnologias</h4>
+        <app-editor-field
+          label="Atividades (uma por linha)"
+          [control]="state.control(locale, 'highlights')"
+          [multiline]="true"
+        />
+        <app-editor-field
+          label="Tecnologias (uma por linha)"
+          [control]="state.control(locale, 'technologies')"
+          [multiline]="true"
+        />
+      </fieldset>
+    }
+  </div>
+</app-editor-shell>

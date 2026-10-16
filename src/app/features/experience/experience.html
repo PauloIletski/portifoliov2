@@ -1,0 +1,58 @@
+<section class="experience-page" aria-labelledby="experience-title" appMotionEnter>
+  <header class="page-heading">
+    <h1 id="experience-title" i18n="@@experience.title">Experiências</h1>
+    <p i18n="@@experience.intro">
+      Cada etapa, novas perspectivas. Explore os pontos da trajetória.
+    </p>
+  </header>
+  <app-content-status
+    [loading]="supplied() === undefined && remote.loading()"
+    [error]="supplied() === undefined && remote.error()"
+    [english]="english"
+    (retry)="remote.reload()"
+  />
+  <ol class="timeline" ngAccordionGroup [multiExpandable]="false">
+    @for (entry of experiences(); track entry.id) {
+      <li class="timeline-item">
+        <h2 class="entry-heading">
+          <button type="button" class="timeline-trigger" ngAccordionTrigger [panel]="panel">
+            <span class="timeline-point" aria-hidden="true"></span>
+            <span class="entry-overview">
+              <span class="entry-period">{{ entry.period }}</span>
+              <span class="entry-role">{{ entry.role }}</span>
+              <span class="entry-company">{{ entry.company }}</span>
+            </span>
+            <span class="expand-icon" aria-hidden="true"></span>
+          </button>
+        </h2>
+        <div class="timeline-panel" ngAccordionPanel #panel="ngAccordionPanel">
+          <ng-template ngAccordionContent>
+            <div class="entry-content" appMotionEnter>
+              <p class="entry-summary">{{ entry.summary }}</p>
+              <ul class="entry-highlights">
+                @for (highlight of entry.highlights; track highlight) {
+                  <li>{{ highlight }}</li>
+                }
+              </ul>
+              <ul
+                class="entry-technologies"
+                aria-label="Tecnologias"
+                i18n-aria-label="@@projects.technologies"
+              >
+                @for (technology of entry.technologies; track technology) {
+                  <li>{{ technology }}</li>
+                }
+              </ul>
+            </div>
+          </ng-template>
+        </div>
+      </li>
+    } @empty {
+      @if (supplied() !== undefined || (!remote.loading() && !remote.error())) {
+        <li class="empty-message" i18n="@@experience.empty">
+          Novas experiências serão adicionadas aqui.
+        </li>
+      }
+    }
+  </ol>
+</section>

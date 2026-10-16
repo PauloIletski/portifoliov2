@@ -1,0 +1,69 @@
+<section class="about-page" aria-labelledby="about-title" appMotionEnter>
+  <header class="page-heading">
+    <h1 id="about-title" i18n="@@about.title">Sobre</h1>
+    <p i18n="@@about.intro">Um pouco sobre como penso e construo software.</p>
+  </header>
+
+  <app-content-status
+    [loading]="profile.loading() || skills.loading()"
+    [error]="profile.error() || skills.error()"
+    [english]="english"
+    (retry)="profile.reload(); skills.reload()"
+  />
+  @if (profile.data(); as profiles) {
+    @if (profiles[0]; as item) {
+      <div class="about-content">
+        <section class="profile" aria-labelledby="profile-title">
+          <h2 id="profile-title">{{ item.name }}</h2>
+          <p class="profile-role">{{ item.role }}</p>
+          <p>{{ item.description }}</p>
+          <p>{{ item.descriptionMore }}</p>
+        </section>
+        <section class="work-style" aria-labelledby="work-title">
+          <h2 id="work-title" i18n="@@about.workTitle">Como trabalho</h2>
+          <ul class="principles">
+            @for (principle of item.principles; track $index) {
+              <li>
+                <h3>{{ principle.title }}</h3>
+                <p>{{ principle.description }}</p>
+              </li>
+            }
+          </ul>
+        </section>
+      </div>
+    } @else if (!profile.error() && !profile.loading()) {
+      <p>{{ english ? 'Profile coming soon.' : 'Perfil em breve.' }}</p>
+    }
+  }
+  @if (skills.data(); as items) {
+    <section class="skills" aria-labelledby="skills-title">
+      <h2 id="skills-title" i18n="@@about.skillsTitle">Habilidades</h2>
+      <p class="skills-intro" i18n="@@about.skillsIntro">
+        Tecnologias e práticas que fazem parte da minha forma de construir.
+      </p>
+      <div class="skills-grid">
+        @for (group of groups; track group) {
+          <section [attr.aria-labelledby]="group + '-title'">
+            <h3 [id]="group + '-title'">{{ groupTitle(group) }}</h3>
+            <ul class="skill-list">
+              @for (skill of items; track $index) {
+                @if (skill.group === group) {
+                  <li>
+                    <app-skill-icon [name]="skill.icon" /><span>{{ skill.name }}</span>
+                  </li>
+                }
+              }
+            </ul>
+          </section>
+        }
+      </div>
+      @if (!items.length && !skills.error() && !skills.loading()) {
+        <p>{{ english ? 'Skills coming soon.' : 'Habilidades em breve.' }}</p>
+      }
+    </section>
+  }
+  <div class="about-contact">
+    <p i18n="@@about.contactText">Tem uma ideia que podemos construir juntos?</p>
+    <a mat-flat-button routerLink="/contact" i18n="@@home.contactAction">Vamos conversar</a>
+  </div>
+</section>

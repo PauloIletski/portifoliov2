@@ -1,0 +1,24 @@
+<div class="detail-list">
+  @for (detail of details.controls; track detail; let index = $index) {
+    <fieldset [formGroup]="detail">
+      <legend>Detalhe {{ index + 1 }}</legend>
+      <mat-form-field
+        ><mat-label>Título do detalhe {{ index + 1 }}</mat-label
+        ><input matInput formControlName="title" placeholder="Ex.: Movimento com intenção"
+      /></mat-form-field>
+      <mat-form-field
+        ><mat-label>Descrição do detalhe {{ index + 1 }}</mat-label
+        ><textarea
+          matInput
+          formControlName="description"
+          rows="3"
+          placeholder="Descreva uma decisão, funcionalidade ou resultado do projeto."
+        ></textarea>
+      </mat-form-field>
+      <button type="button" mat-stroked-button (click)="remove(index)">
+        Remover detalhe {{ index + 1 }}
+      </button>
+    </fieldset>
+  }
+</div>
+<button type="button" mat-stroked-button (click)="add()">Adicionar detalhe</button>

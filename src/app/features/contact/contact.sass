@@ -1,0 +1,51 @@
+:host
+  display: block
+.contact-page
+  padding: var(--page-block-start) var(--page-gutter) var(--page-block-end)
+.page-heading
+  max-width: 56rem
+  margin-bottom: 2.5rem
+  h1
+    margin: 0 0 1rem
+    font-size: var(--font-display-size)
+    font-weight: var(--font-display-weight)
+    line-height: var(--font-display-leading)
+    letter-spacing: var(--font-display-tracking)
+  p
+    color: var(--color-text-muted)
+    font-size: 1.125rem
+.contact-list
+  display: grid
+  grid-template-columns: repeat(2, minmax(0, 1fr))
+  gap: 1rem
+  list-style: none
+  padding: 0
+  li
+    min-width: 0
+.contact-link
+  display: flex
+  justify-content: flex-start
+  width: 100%
+  height: auto
+  min-height: 88px
+  padding: 1.25rem
+  border: 1px solid var(--color-border)
+  border-radius: 1rem
+  --mat-button-filled-container-color: var(--color-surface)
+  --mat-button-filled-label-text-color: var(--color-text)
+  &.whatsapp
+    border-color: var(--color-accent)
+  app-contact-icon
+    vertical-align: middle
+    margin-right: .75rem
+.contact-value
+  display: block
+  margin-top: .5rem
+  color: var(--color-text-muted)
+  white-space: normal
+  overflow-wrap: anywhere
+.example-note, .empty
+  color: var(--color-text-muted)
+@media (max-width: 767px)
+  .contact-list
+    grid-template-columns: 1fr

@@ -1,0 +1,46 @@
+<div class="cosmos">
+  <div class="star-field" data-depth="-0.35">
+    <span class="star star-one"></span>
+    <span class="star star-two"></span>
+    <span class="star star-three"></span>
+    <span class="star star-four"></span>
+    <span class="star star-five"></span>
+    <span class="star star-six"></span>
+  </div>
+  <div class="planet-layer" data-depth="0.55">
+    <div class="atmosphere"></div>
+    <div class="orbit orbit-back"></div>
+    <div class="sphere">
+      <svg class="terrain" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+        <path d="M-20 130C50 32 101 174 166 89S289 45 336 104 418 73 435 5M-25 161C64 62 106 207 176 119S297 83 342 131 422 108 442 44M-30 192C70 96 108 240 187 151S309 117 351 159 430 143 451 83M-35 224C77 130 113 273 197 183S319 153 360 187 438 179 461 122M-40 257C85 164 118 306 208 216S330 190 370 216 446 215 471 163M-45 291C91 199 124 340 220 250S343 228 381 245 454 251 481 204M-50 326C98 235 130 375 233 285S356 267 393 275 462 288 492 246" stroke="currentColor" stroke-width="1.4" />
+      </svg>
+      <div class="sphere-shadow"></div>
+    </div>
+    <div class="orbit orbit-front"></div>
+    <span class="orbit-point"></span>
+  </div>
+  <div class="satellite-layer" data-depth="1.1">
+    <span class="satellite satellite-one"></span>
+    <span class="satellite satellite-two"></span>
+    <span class="crosshair"></span>
+  </div>
+  <div class="flight-window">
+    <div class="rocket-track">
+      <svg class="rocket" viewBox="0 0 100 48" fill="none" aria-hidden="true">
+        <path d="M39 18 4 24l35 6" fill="url(#planet-rocket-trail)" />
+        <path d="m51 15-9-9-5 14m14 13-9 9-5-14" fill="#477bff" />
+        <path d="M34 17c17-10 36-7 54 7-18 14-37 17-54 7z" fill="#d9e9ff" />
+        <path d="M69 14c7 2 13 6 19 10-6 4-12 8-19 10z" fill="#477bff" />
+        <path d="M34 26h44c-15 10-30 12-44 5z" fill="#b9d9ff" />
+        <circle cx="55" cy="24" r="6" fill="#0b1020" stroke="#477bff" stroke-width="2" />
+        <circle cx="54" cy="22" r="2" fill="#22c6ae" />
+        <defs>
+          <linearGradient id="planet-rocket-trail" x1="4" y1="24" x2="39" y2="24" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#22c6ae" stop-opacity="0" />
+            <stop offset="1" stop-color="#b9d9ff" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</div>

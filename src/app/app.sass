@@ -1,0 +1,28 @@
+:host
+  display: flex
+  flex-direction: column
+  min-height: 100dvh
+
+main
+  overflow-x: clip
+  flex: 1
+  width: 100%
+  max-width: var(--container-max-width)
+  margin: 0 auto
+  padding: 2rem var(--page-gutter)
+
+@media (max-width: 767px)
+  main
+    padding: 1.5rem var(--page-gutter)
+
+:host.admin-layout main
+  max-width: none
+  padding: 0
+
+:host.maintenance-layout main
+  max-width: none
+  padding: 0
+.maintenance-loading
+  min-height: 100dvh
+  display: grid
+  place-items: center

@@ -1,0 +1,157 @@
+:host
+  display: block
+
+.hero
+  position: relative
+  display: flex
+  align-items: center
+  isolation: isolate
+  min-height: clamp(640px, calc(100svh - 144px), 900px)
+  padding: var(--page-block-start) 0 var(--page-block-end)
+
+.hero-copy
+  position: relative
+  z-index: 1
+  width: 64%
+  max-width: 47rem
+
+.introduction
+  margin: 0 0 1.5rem
+  color: var(--color-text-muted)
+  font-size: 1.0625rem
+  line-height: 1.6
+
+h1
+  margin: 0
+  max-width: 12ch
+  color: var(--color-text)
+  font-size: var(--font-display-size)
+  font-weight: var(--font-display-weight)
+  line-height: var(--font-display-leading)
+  letter-spacing: var(--font-display-tracking)
+  text-wrap: balance
+
+.hero-description
+  max-width: 38ch
+  margin: 1.75rem 0 0
+  color: var(--color-text-muted)
+  font-size: clamp(1.0625rem, 1.6vw, 1.1875rem)
+  line-height: 1.7
+
+.hero-actions
+  display: flex
+  flex-wrap: wrap
+  gap: 0.875rem
+  margin-top: 2rem
+  a
+    min-height: 48px
+    padding-inline: 1.5rem
+
+.hero-note
+  display: flex
+  align-items: flex-start
+  gap: 0.75rem
+  margin-top: 3rem
+  color: var(--color-text-muted)
+  p
+    max-width: 40ch
+    margin: 0
+    font-size: 0.875rem
+    line-height: 1.6
+
+.note-mark
+  flex-shrink: 0
+  width: 6px
+  height: 6px
+  margin-top: 8px
+  border-radius: 50%
+  background: var(--color-accent)
+
+.hero-art
+  position: absolute
+  z-index: -1
+  width: min(63%, 760px)
+  aspect-ratio: 1
+  right: 0
+  top: 50%
+  transform: translateY(-50%)
+  pointer-events: auto
+
+.planet-scene
+  width: 100%
+  height: 100%
+
+@media (max-width: 1023px)
+  h1
+    font-size: var(--font-display-size)
+  .hero-art
+    right: 0
+    opacity: 0.8
+  .hero-copy
+    width: 70%
+
+@media (max-width: 767px)
+  .hero
+    min-height: min(720px, calc(100svh - 128px))
+    align-items: flex-start
+    padding: var(--page-block-start) 0 var(--page-block-end)
+  .hero-copy
+    width: 100%
+    max-width: none
+  h1
+    font-size: var(--font-display-size)
+    max-width: 14ch
+    line-height: var(--font-display-leading)
+  .introduction
+    margin-bottom: 1.25rem
+  .hero-description
+    max-width: 34ch
+    margin-top: 1.5rem
+  .hero-actions
+    margin-top: 1.75rem
+    a:last-child
+      background: var(--color-background)
+  .hero-note
+    margin-top: 2rem
+    max-width: 32ch
+  .hero-art
+    // Keep decoration inside the hero without clipping keyboard focus on the content.
+    inset: 0
+    width: 100%
+    height: 100%
+    aspect-ratio: auto
+    transform: none
+    overflow: clip
+    pointer-events: none
+    &::after
+      content: ''
+      position: absolute
+      inset: 0
+      background: linear-gradient(90deg, #0b1020e6 0%, #0b1020b3 48%, #0b10204d 100%), linear-gradient(0deg, #0b1020 0%, #0b102000 35%, #0b102000 85%, #0b1020 100%)
+  .planet-scene
+    position: absolute
+    width: min(140%, 620px)
+    height: auto
+    aspect-ratio: 1
+    top: 1.5rem
+    right: -35%
+    opacity: 0.65
+
+@media (max-width: 479px)
+  .hero-actions
+    flex-direction: column
+    align-items: stretch
+    max-width: 22rem
+  .planet-scene
+    top: 4rem
+    right: -38%
+
+.motion-toggle
+  margin-top: 1rem
+  min-height: 44px
+  color: var(--color-text-muted)
+  font-size: 0.8125rem
+
+@media (prefers-reduced-motion: reduce)
+  .motion-toggle
+    display: none

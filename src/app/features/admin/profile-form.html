@@ -1,0 +1,32 @@
+<app-editor-shell
+  title="Perfil"
+  singular="perfil"
+  description="Atualize sua apresentação e a forma como você trabalha."
+>
+  <div class="languages">
+    @for (locale of state.locales; track locale) {
+      <fieldset>
+        <legend>{{ locale === 'pt-BR' ? 'Português' : 'English' }}</legend>
+        <h4>Apresentação pessoal</h4>
+        <app-editor-field label="Nome" [control]="state.control(locale, 'name')" />
+        <app-editor-field label="Cargo" [control]="state.control(locale, 'role')" />
+        <app-editor-field
+          label="Descrição"
+          [control]="state.control(locale, 'description')"
+          [multiline]="true"
+        />
+        <app-editor-field
+          label="Complemento"
+          [control]="state.control(locale, 'descriptionMore')"
+          [multiline]="true"
+        />
+        <h4>Como trabalho</h4>
+        <app-editor-field
+          label="Princípios (título | descrição, um por linha)"
+          [control]="state.control(locale, 'principles')"
+          [multiline]="true"
+        />
+      </fieldset>
+    }
+  </div>
+</app-editor-shell>

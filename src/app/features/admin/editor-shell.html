@@ -1,0 +1,165 @@
+<section [attr.aria-labelledby]="state.kind() + '-area-title'" [attr.aria-busy]="state.busy()">
+  <header class="area-heading">
+    <h2 [id]="state.kind() + '-area-title'">{{ title() }}</h2>
+    <p>{{ description() }}</p>
+  </header>
+  @if (state.busy()) {
+    <div class="loading-status" role="status">
+      <mat-spinner [diameter]="24" [strokeWidth]="3" aria-hidden="true" />
+      <span>Processando…</span>
+    </div>
+  }
+  @if (state.error()) {
+    <p role="alert">{{ state.error() }}</p>
+    <button type="button" mat-stroked-button [disabled]="state.busy()" (click)="state.load()">
+      Recarregar listagem
+    </button>
+  }
+  @if (state.message()) {
+    <p role="status">{{ state.message() }}</p>
+  }
+  <aside class="record-collection" aria-label="Registros" [hidden]="state.formOpen()">
+    <div class="collection-heading">
+      <h3 #recordsHeading tabindex="-1">Registros salvos</h3>
+      <button
+        type="button"
+        mat-stroked-button
+        [disabled]="
+          state.busy() ||
+          ((state.kind() === 'profiles' || state.kind() === 'maintenance') &&
+            state.rows().length > 0)
+        "
+        (click)="openEditor()"
+      >
+        {{
+          state.kind() === 'profiles' || state.kind() === 'maintenance'
+            ? 'Criar cadastro'
+            : 'Adicionar ' + singular()
+        }}
+      </button>
+    </div>
+    <ul>
+      @for (row of state.rows(); track row.id) {
+        <li class="record-item" [class.selected]="state.selected() === row.id">
+          <button
+            class="record-open"
+            type="button"
+            [disabled]="state.busy()"
+            [attr.aria-pressed]="state.selected() === row.id"
+            (click)="openEditor(row)"
+          >
+            <span class="record-name">{{ state.label(row) }}</span>
+            <span class="record-status">
+              {{
+                state.kind() === 'contacts'
+                  ? state.contactVisible(row)
+                    ? 'Exibindo'
+                    : 'Oculto'
+                  : row.published
+                    ? state.kind() === 'maintenance'
+                      ? 'Ativo'
+                      : 'Publicado'
+                    : state.kind() === 'maintenance'
+                      ? 'Desativado'
+                      : 'Rascunho'
+              }}
+            </span>
+          </button>
+          <button
+            class="delete-record"
+            type="button"
+            [disabled]="state.busy()"
+            [attr.title]="'Excluir ' + singular() + ': ' + state.label(row)"
+            [attr.aria-label]="'Excluir ' + singular() + ': ' + state.label(row)"
+            (click)="requestDelete(row, $event)"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M3 6h18M9 6V4h6v2M5 6l1 14h12l1-14M10 10v6M14 10v6" />
+            </svg>
+          </button>
+        </li>
+      }
+    </ul>
+    @if (!state.rows().length && !state.busy() && !state.error()) {
+      <p>Nenhum item na listagem. Use o botão acima para cadastrar.</p>
+    }
+  </aside>
+  @if (state.confirmDelete()) {
+    <div class="confirmation" role="alert">
+      <p>
+        Excluir
+        {{ state.deletionTarget() ? state.label(state.deletionTarget()!) : singular() }}
+        permanentemente?
+      </p>
+      <div class="actions">
+        <button
+          #deleteConfirmation
+          type="button"
+          mat-flat-button
+          [disabled]="state.busy()"
+          (click)="confirmDeletion()"
+        >
+          Confirmar exclusão</button
+        ><button
+          type="button"
+          mat-stroked-button
+          [disabled]="state.busy()"
+          (click)="cancelDelete()"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  }
+  <form
+    [formGroup]="state.form"
+    [hidden]="!state.formOpen()"
+    (ngSubmit)="save()"
+    [attr.aria-labelledby]="state.kind() + '-form-title'"
+  >
+    <button type="button" mat-stroked-button [disabled]="state.busy()" (click)="backToList()">
+      Voltar à listagem
+    </button>
+    <h3 #formHeading tabindex="-1" [id]="state.kind() + '-form-title'">
+      {{ state.selected() ? 'Editar ' : 'Cadastrar ' }}{{ singular() }}
+    </h3>
+    <div class="publication">
+      <mat-form-field
+        ><mat-label>Ordem</mat-label
+        ><input matInput type="number" min="0" step="1" [formControl]="state.position"
+      /></mat-form-field>
+      @if (state.kind() !== 'contacts') {
+        <mat-checkbox [formControl]="state.published">{{
+          state.kind() === 'maintenance' ? 'Ativar tapume no site' : 'Publicado'
+        }}</mat-checkbox>
+      }
+    </div>
+    <ng-content />
+    <div class="actions">
+      <button type="submit" mat-flat-button [disabled]="state.busy()">
+        Salvar {{ singular() }}
+      </button>
+      @if (state.selected()) {
+        <button
+          type="button"
+          mat-stroked-button
+          [disabled]="state.busy()"
+          (click)="requestDelete(undefined, $event)"
+        >
+          Excluir {{ singular() }}
+        </button>
+      }
+    </div>
+  </form>
+</section>

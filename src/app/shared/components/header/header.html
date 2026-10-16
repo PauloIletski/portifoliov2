@@ -1,0 +1,37 @@
+<a class="skip-link" href="#main-content" i18n="@@header.skip">Pular para o conteúdo</a>
+
+<header class="header" (keydown.escape)="closeWithEscape($event, menuToggle)">
+  <div class="header-inner">
+    <a class="brand" routerLink="/" (click)="menuOpen.set(false)"
+      aria-label="Paulo Vieira - Início" i18n-aria-label="@@header.home">
+      <span class="brand-mark" aria-hidden="true">PV<span>.</span></span>
+      <span class="brand-name" aria-hidden="true">Paulo Vieira</span>
+    </a>
+
+    <button #menuToggle mat-button class="menu-toggle" type="button"
+      aria-controls="primary-navigation" [attr.aria-expanded]="menuOpen()"
+      (click)="menuOpen.set(!menuOpen())">
+      <span i18n="@@header.menu">Menu</span>
+      <span class="menu-icon" [class.is-open]="menuOpen()" aria-hidden="true">
+        <span></span><span></span>
+      </span>
+    </button>
+
+    <div class="navigation-panel" [appMotionDisclosure]="menuOpen()" [class.is-open]="menuOpen()" id="primary-navigation">
+      <nav aria-label="Navegação principal" i18n-aria-label="@@header.navigation">
+        <ul class="navigation-list">
+          @for (item of navigation; track item.path) {
+            <li>
+              <a class="navigation-link" [routerLink]="item.path"
+                routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+                ariaCurrentWhenActive="page" (click)="menuOpen.set(false)">
+                {{ item.label }}
+              </a>
+            </li>
+          }
+        </ul>
+      </nav>
+      <app-language-switcher />
+    </div>
+  </div>
+</header>

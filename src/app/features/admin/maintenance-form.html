@@ -1,0 +1,62 @@
+<app-editor-shell
+  title="Tapume"
+  singular="tapume"
+  description="Configure a página de lançamento. Quando ativo, o tapume substitui as páginas públicas; o admin continua acessível."
+>
+  <div class="phrases">
+    @for (locale of state.locales; track locale) {
+      <fieldset>
+        <legend>{{ locale === 'pt-BR' ? 'Português' : 'English' }}</legend>
+        <app-editor-field
+          label="Frase de lançamento"
+          [multiline]="true"
+          [control]="state.control(locale, 'name')"
+        />
+      </fieldset>
+    }
+  </div>
+  <div class="launch-datetime">
+    <mat-form-field>
+      <mat-label>Data do lançamento</mat-label>
+      <input
+        matInput
+        [matDatepicker]="calendar"
+        [formControl]="launchDate"
+        placeholder="dd/mm/aaaa"
+      />
+      <mat-datepicker-toggle matIconSuffix [for]="calendar" aria-label="Abrir calendário" />
+      <mat-datepicker #calendar />
+      @if (launchDate.invalid) {
+        <mat-error>Informe uma data válida.</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Hora do lançamento</mat-label>
+      <input matInput [matTimepicker]="clock" [formControl]="launchTime" placeholder="hh:mm" />
+      <mat-timepicker-toggle matIconSuffix [for]="clock" aria-label="Selecionar horário" />
+      <mat-timepicker #clock interval="15m" />
+      @if (launchTime.invalid) {
+        <mat-error>Informe um horário válido.</mat-error>
+      }
+    </mat-form-field>
+  </div>
+  <p class="datetime-hint">
+    Horário local do seu dispositivo. Data e hora são compartilhadas entre os idiomas.
+  </p>
+  <fieldset class="technologies">
+    <legend>Tecnologias utilizadas</legend>
+    <p>Selecione os ícones que aparecerão no tapume.</p>
+    <div class="technology-options">
+      @for (icon of technologyOptions; track icon) {
+        <mat-checkbox
+          [checked]="hasTechnology(icon)"
+          (change)="toggleTechnology(icon, $event.checked)"
+        >
+          <span class="technology"
+            ><app-skill-icon [name]="icon" />{{ technologyLabels[icon] }}</span
+          >
+        </mat-checkbox>
+      }
+    </div>
+  </fieldset>
+</app-editor-shell>

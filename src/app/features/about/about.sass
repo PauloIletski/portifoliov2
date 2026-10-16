@@ -1,0 +1,136 @@
+:host
+  display: block
+
+.about-page
+  padding: var(--page-block-start) 0 var(--page-block-end)
+
+.page-heading
+  margin-bottom: 3rem
+  h1
+    margin: 0 0 1.5rem
+    font-size: var(--font-display-size)
+    font-weight: var(--font-display-weight)
+    letter-spacing: var(--font-display-tracking)
+    line-height: var(--font-display-leading)
+  p
+    max-width: 46ch
+    margin: 0
+    font-size: 1.1875rem
+    line-height: 1.7
+    color: var(--color-text-muted)
+
+.about-content
+  display: grid
+  grid-template-columns: 1.25fr 1fr
+  gap: 4rem
+  align-items: start
+
+h2
+  margin: 0 0 1rem
+  font-size: 1.5rem
+  font-weight: 600
+  letter-spacing: -0.025em
+  line-height: 1.3
+
+h3
+  margin: 0 0 0.5rem
+  font-size: 1rem
+  font-weight: 600
+  line-height: 1.5
+
+.profile
+  p
+    max-width: 58ch
+    margin: 0 0 1.25rem
+    color: var(--color-text-muted)
+    line-height: 1.75
+  .profile-role
+    margin-top: -0.5rem
+    margin-bottom: 1.5rem
+    font-size: 0.9375rem
+    color: var(--color-accent)
+
+.work-style
+  padding-left: 2rem
+  border-left: 1px solid var(--color-border)
+
+.principles
+  padding: 0
+  margin: 1.5rem 0 0
+  list-style: none
+  li + li
+    margin-top: 1.5rem
+  p
+    margin: 0
+    max-width: 38ch
+    color: var(--color-text-muted)
+    font-size: 0.9375rem
+    line-height: 1.7
+
+.skills
+  margin-top: 3rem
+  padding-top: 2rem
+  border-top: 1px solid var(--color-border)
+
+.skills-intro
+  margin: 0 0 2rem
+  max-width: 60ch
+  color: var(--color-text-muted)
+  line-height: 1.7
+
+.skills-grid
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
+  gap: 2rem
+
+.skill-list
+  margin: 1rem 0 0
+  padding: 0
+  list-style: none
+  color: var(--color-text-muted)
+  line-height: 1.75
+  li
+    display: flex
+    align-items: flex-start
+    gap: 0.75rem
+    app-skill-icon
+      margin-top: 3px
+  li + li
+    margin-top: 0.75rem
+
+.about-contact
+  display: flex
+  align-items: center
+  flex-wrap: wrap
+  gap: 1rem 2rem
+  margin-top: 3rem
+  padding-top: 2rem
+  border-top: 1px solid var(--color-border)
+  p
+    margin: 0
+    max-width: 50ch
+    color: var(--color-text-muted)
+    line-height: 1.7
+  a
+    min-height: 48px
+    padding-inline: 1.5rem
+
+@media (max-width: 959px)
+  .about-content
+    grid-template-columns: 1fr
+    gap: 2rem
+  .work-style
+    border-left: 0
+    padding-left: 0
+  .skills-grid
+    grid-template-columns: repeat(2, 1fr)
+
+@media (max-width: 767px)
+  .page-heading
+    margin-bottom: 2rem
+    p
+      font-size: 1.0625rem
+  .skills-grid
+    grid-template-columns: 1fr
+  .skills, .about-contact
+    margin-top: 2.5rem

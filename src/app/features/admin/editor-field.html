@@ -1,0 +1,17 @@
+<mat-form-field
+  ><mat-label>{{ label() }}</mat-label>
+  @if (options().length) {
+    <mat-select [formControl]="control()">
+      @for (option of options(); track option) {
+        <mat-option [value]="option">{{ option }}</mat-option>
+      }
+    </mat-select>
+  } @else if (multiline()) {
+    <textarea matInput [placeholder]="placeholder()" [formControl]="control()" rows="4"></textarea>
+  } @else {
+    <input matInput [placeholder]="placeholder()" [formControl]="control()" />
+  }
+  @if (hint()) {
+    <mat-hint>{{ hint() }}</mat-hint>
+  }
+</mat-form-field>

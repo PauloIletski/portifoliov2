@@ -1,0 +1,38 @@
+<section class="contact-page" aria-labelledby="contact-title" appMotionEnter>
+  <header class="page-heading">
+    <h1 id="contact-title">{{ english ? 'Contact' : 'Contato' }}</h1>
+    <p>{{ english ? 'Have an idea? Let’s talk.' : 'Tem uma ideia? Vamos conversar.' }}</p>
+  </header>
+  <app-content-status
+    [loading]="remote.loading()"
+    [error]="remote.error()"
+    [english]="english"
+    (retry)="remote.reload()"
+  />
+  <ul class="contact-list">
+    @for (channel of channels(); track $index) {
+      <li>
+        <a
+          mat-flat-button
+          [href]="channel.href"
+          [attr.target]="channel.type === 'email' ? null : '_blank'"
+          [attr.rel]="channel.type === 'email' ? null : 'noopener noreferrer'"
+          class="contact-link"
+          [class.whatsapp]="channel.type === 'whatsapp'"
+          ><app-contact-icon [type]="channel.type" /><span>{{ channel.label }}</span
+          ><span class="contact-value">{{ channel.value }}</span></a
+        >
+      </li>
+    } @empty {
+      @if (!remote.loading() && !remote.error()) {
+        <li class="empty">
+          {{
+            english
+              ? 'No contact channels are currently displayed.'
+              : 'Nenhum canal de contato está sendo exibido no momento.'
+          }}
+        </li>
+      }
+    }
+  </ul>
+</section>

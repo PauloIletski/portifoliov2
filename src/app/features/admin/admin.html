@@ -1,0 +1,69 @@
+<section class="admin" aria-labelledby="admin-title">
+  <div class="admin-layout">
+    <aside class="section-sidebar">
+      <div class="brand" role="img" aria-label="Paulo Vieira">
+        <span class="brand-mark" aria-hidden="true">PV<span>.</span></span>
+        <span class="brand-name" aria-hidden="true">Paulo Vieira</span>
+      </div>
+      <p class="sidebar-label">Gerenciar conteúdo</p>
+      <nav aria-label="Áreas do portfólio">
+        @for (item of sections; track item.id) {
+          <button
+            type="button"
+            class="section-link"
+            [class.active]="section() === item.id"
+            [attr.aria-current]="section() === item.id ? 'page' : null"
+            aria-controls="section-content"
+            (click)="selectSection(item.id)"
+          >
+            <span>{{ item.label }}</span
+            ><small>{{ item.description }}</small>
+          </button>
+        }
+      </nav>
+      <button class="logout" type="button" mat-stroked-button (click)="auth.logout()">Sair</button>
+    </aside>
+    <div class="workspace">
+      <header class="workspace-heading"><h1 id="admin-title">Administração</h1></header>
+      <div
+        #sectionContent
+        class="section-content"
+        id="section-content"
+        tabindex="-1"
+        role="region"
+        [attr.aria-labelledby]="section() + '-area-title'"
+      >
+        @for (item of sections; track item.id) {
+          @if (visited().includes(item.id)) {
+            <div
+              class="area-panel"
+              [hidden]="section() !== item.id"
+              [attr.inert]="section() !== item.id ? '' : null"
+            >
+              @switch (item.id) {
+                @case ('maintenance') {
+                  <app-maintenance-form />
+                }
+                @case ('contacts') {
+                  <app-contact-form />
+                }
+                @case ('projects') {
+                  <app-project-form />
+                }
+                @case ('experiences') {
+                  <app-experience-form />
+                }
+                @case ('profiles') {
+                  <app-profile-form />
+                }
+                @case ('skills') {
+                  <app-skill-form />
+                }
+              }
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</section>

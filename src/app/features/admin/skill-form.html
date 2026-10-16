@@ -1,0 +1,25 @@
+<app-editor-shell
+  title="Habilidades"
+  singular="habilidade"
+  description="Organize as tecnologias e práticas exibidas na área Sobre."
+>
+  <div class="languages">
+    @for (locale of state.locales; track locale) {
+      <fieldset>
+        <legend>{{ locale === 'pt-BR' ? 'Português' : 'English' }}</legend>
+        <h4>Habilidade</h4>
+        <app-editor-field label="Habilidade" [control]="state.control(locale, 'name')" />
+        <app-editor-field
+          label="Grupo"
+          [control]="state.control(locale, 'group')"
+          [options]="state.groups"
+        />
+        <app-editor-field
+          label="Ícone"
+          [control]="state.control(locale, 'icon')"
+          [options]="state.icons"
+        />
+      </fieldset>
+    }
+  </div>
+</app-editor-shell>

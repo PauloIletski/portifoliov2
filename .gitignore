@@ -42,3 +42,11 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Supabase local configuration
+.env
+.env.*
+!.env.example
+public/supabase-config.json
+supabase/.temp/
+supabase/.branches/

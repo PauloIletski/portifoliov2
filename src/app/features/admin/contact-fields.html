@@ -1,0 +1,31 @@
+<div [formGroup]="channel">
+  <mat-form-field
+    ><mat-label>Tipo de contato</mat-label
+    ><mat-select formControlName="type">
+      @for (type of types; track type) {
+        <mat-option [value]="type">{{ label(type) }}</mat-option>
+      }
+    </mat-select></mat-form-field
+  >
+  <mat-form-field subscriptSizing="dynamic"
+    ><mat-label>Endereço ou número</mat-label
+    ><input
+      matInput
+      formControlName="value"
+      [placeholder]="
+        channel.controls.type.value === 'whatsapp'
+          ? '+55 (11) 99999-9999'
+          : channel.controls.type.value === 'email'
+            ? 'voce@exemplo.com'
+            : 'https://'
+      "
+    /><mat-hint>{{
+      channel.controls.type.value === 'whatsapp'
+        ? 'Informe país, DDD e número. O link wa.me será gerado automaticamente.'
+        : channel.controls.type.value === 'email'
+          ? 'Informe um e-mail válido.'
+          : 'Informe a URL completa do perfil.'
+    }}</mat-hint></mat-form-field
+  >
+  <mat-slide-toggle formControlName="visible">Exibir este contato no site</mat-slide-toggle>
+</div>

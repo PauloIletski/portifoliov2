@@ -1,0 +1,94 @@
+:host
+  display: block
+  min-width: 0
+.area-heading
+  margin-bottom: 1.5rem
+  h2
+    margin: 0 0 .5rem
+    font-size: 2rem
+    letter-spacing: -.035em
+  p
+    color: var(--color-text-muted)
+.record-collection
+  border-bottom: 1px solid var(--color-border)
+  padding-bottom: 1rem
+  margin-bottom: 1.5rem
+.collection-heading, .publication, .actions
+  display: flex
+  flex-wrap: wrap
+  align-items: center
+  gap: 1rem
+.collection-heading
+  justify-content: space-between
+ul
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr))
+  gap: .75rem
+  list-style: none
+  padding: 0
+.record-item
+  display: grid
+  grid-template-columns: minmax(0, 1fr) 48px
+  min-width: 0
+  border: 1px solid #30486e
+  border-radius: .75rem
+  background: #13213a
+  &.selected
+    border-color: #86b4ff
+.record-open, .delete-record
+  border: 0
+  color: var(--color-text)
+  font: inherit
+  cursor: pointer
+  &:focus-visible
+    outline: 2px solid #a9cbff
+    outline-offset: -3px
+  &:disabled
+    opacity: .5
+    cursor: wait
+.record-open
+  display: grid
+  align-content: center
+  gap: .375rem
+  min-width: 0
+  min-height: 68px
+  padding: .875rem 1rem
+  border-radius: .7rem 0 0 .7rem
+  background: transparent
+  text-align: left
+  overflow-wrap: anywhere
+  &:hover, &[aria-pressed="true"]
+    background: #1a3155
+.record-name
+  font-weight: 600
+  line-height: 1.4
+.record-status
+  font-size: .8125rem
+  color: #b9d2ff
+.delete-record
+  display: grid
+  place-items: center
+  min-height: 48px
+  padding: 0
+  border-left: 1px solid #30486e
+  border-radius: 0 .7rem .7rem 0
+  background: #233e69
+  color: #d5e5ff
+  &:hover
+    background: #31568d
+form
+  min-width: 0
+.publication
+  margin-block: 1rem
+  mat-form-field
+    width: 140px
+.actions
+  margin-block: 1.5rem 0
+.confirmation
+  margin-top: 1.5rem
+  padding: 1rem
+  border: 1px solid var(--color-border)
+  border-radius: .75rem
+
+.record-collection[hidden], form[hidden]
+  display: none

@@ -2,7 +2,8 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": "22c48366-0ddf-4109-af04-d5f9d686ad5e"
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -16,6 +17,18 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": {
+          "code": "pt-BR",
+          "subPath": ""
+        },
+        "locales": {
+          "en-US": {
+            "translation": "src/locale/messages.en-US.xlf",
+            "subPath": "en"
+          }
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular/build:application",
@@ -23,23 +36,24 @@
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "sass",
+            "localize": false,
+            "i18nMissingTranslation": "error",
             "assets": [
               {
                 "glob": "**/*",
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.sass"
-            ],
+            "styles": ["src/material-theme.scss", "src/styles.sass"],
             "server": "src/main.server.ts",
-            "outputMode": "server",
+            "outputMode": "static",
             "security": {
               "allowedHosts": []
             },
             "ssr": {
               "entry": "src/server.ts"
-            }
+            },
+            "polyfills": ["@angular/localize/init"]
           },
           "configurations": {
             "production": {
@@ -55,12 +69,14 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "localize": true
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "localize": false
             }
           },
           "defaultConfiguration": "production"

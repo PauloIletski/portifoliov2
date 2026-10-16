@@ -1,0 +1,22 @@
+// Localized fields keep the same layout across the four dedicated forms.
+:host
+  display: block
+.languages
+  display: grid
+  grid-template-columns: repeat(2, minmax(0, 1fr))
+  gap: 1rem
+fieldset
+  min-width: 0
+  margin: 0
+  border: 1px solid var(--color-border)
+  border-radius: 1rem
+  padding: 1rem
+legend
+  padding-inline: .5rem
+  color: var(--color-text-muted)
+h4
+  font-size: 1rem
+  margin: 1.25rem 0 1rem
+@media (max-width: 1100px)
+  .languages
+    grid-template-columns: 1fr

@@ -1,0 +1,30 @@
+<section class="hero" appPlanetParallax aria-labelledby="home-heading">
+  <div class="hero-copy" appMotionEnter>
+    <p class="introduction" i18n="@@home.introduction">Olá, eu sou Paulo Vieira.</p>
+    <h1 id="home-heading" i18n="@@home.title">Construindo experiências digitais com propósito.</h1>
+    <p class="hero-description" i18n="@@home.description">
+      Desenvolvo aplicações escaláveis, acessíveis e de alta performance.
+    </p>
+    <div class="hero-actions">
+      <a mat-flat-button routerLink="/projects" i18n="@@home.projectsAction">Conheça meus projetos</a>
+      <a mat-stroked-button routerLink="/contact" i18n="@@home.contactAction">Vamos conversar</a>
+    </div>
+    <div class="hero-note">
+      <span class="note-mark" aria-hidden="true"></span>
+      <p i18n="@@home.focus">Engenharia de software com atenção a cada detalhe.</p>
+    </div>
+    <button mat-button class="motion-toggle" type="button" [attr.aria-pressed]="animationsPaused()"
+      (click)="animationsPaused.set(!animationsPaused())">
+      @if (animationsPaused()) {
+        <span i18n="@@home.resumeAnimation">Retomar animações do espaço</span>
+      } @else {
+        <span i18n="@@home.pauseAnimation">Pausar animações do espaço</span>
+      }
+    </button>
+  </div>
+  <div class="hero-art" aria-hidden="true" appMotionEnter [motionDelay]="0.12">
+    <div class="planet-scene">
+      <app-planet [paused]="animationsPaused()" />
+    </div>
+  </div>
+</section>
