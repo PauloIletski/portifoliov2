@@ -1,65 +1,76 @@
 <section class="maintenance" aria-labelledby="launch-title">
   <div class="launch-content">
-    <div class="brand" role="img" aria-label="Paulo Vieira">PV<span>.</span></div>
-    <p class="launch-status">
-      {{ english ? 'Portfolio under construction' : 'Portfólio em construção' }}
-    </p>
-    <h1 id="launch-title">{{ content().name }}</h1>
-    @if (countdown(); as clock) {
-      <dl
-        class="countdown"
-        [attr.aria-label]="english ? 'Time until launch' : 'Tempo até o lançamento'"
-        aria-live="off"
-      >
-        <div>
-          <dt>{{ english ? 'Days' : 'Dias' }}</dt>
-          <dd>{{ clock.days }}</dd>
-        </div>
-        <div>
-          <dt>{{ english ? 'Hours' : 'Horas' }}</dt>
-          <dd>{{ clock.hours.toString().padStart(2, '0') }}</dd>
-        </div>
-        <div>
-          <dt>{{ english ? 'Minutes' : 'Minutos' }}</dt>
-          <dd>{{ clock.minutes.toString().padStart(2, '0') }}</dd>
-        </div>
-        <div>
-          <dt>{{ english ? 'Seconds' : 'Segundos' }}</dt>
-          <dd>{{ clock.seconds.toString().padStart(2, '0') }}</dd>
-        </div>
-      </dl>
-      @if (clock.finished) {
-        <p role="status">
-          {{
-            english ? 'Preparing the launch. See you soon!' : 'Preparando o lançamento. Até breve!'
-          }}
-        </p>
-      }
-    }
-    <p class="technology-label">{{ english ? 'Built with' : 'Construído com' }}</p>
-    <ul class="technologies">
-      @for (icon of content().technologies; track icon) {
-        <li>
-          <app-skill-icon [name]="icon" /><span>{{ technologyLabels[icon] }}</span>
-        </li>
-      }
-    </ul>
-    @if (socialLinks().length) {
-      <nav
-        class="social-links"
-        [attr.aria-label]="english ? 'Social media and contact' : 'Redes sociais e contato'"
-      >
-        @for (link of socialLinks(); track $index) {
-          <a
-            mat-stroked-button
-            [href]="link.href"
-            [attr.target]="link.type === 'email' ? null : '_blank'"
-            [attr.rel]="link.type === 'email' ? null : 'noopener noreferrer'"
-          >
-            <app-contact-icon [type]="link.type" />{{ link.label }}
-          </a>
+    <header class="launch-heading">
+      <div class="brand" role="img" aria-label="Paulo Vieira">PV<span>.</span></div>
+      <p class="launch-status">
+        {{ english ? 'Portfolio under construction' : 'Portfólio em construção' }}
+      </p>
+      <h1 id="launch-title">{{ content().name }}</h1>
+    </header>
+    <div class="launch-details">
+      @if (countdown(); as clock) {
+        <dl
+          class="countdown"
+          [attr.aria-label]="english ? 'Time until launch' : 'Tempo até o lançamento'"
+          aria-live="off"
+        >
+          <div>
+            <dt>{{ english ? 'Days' : 'Dias' }}</dt>
+            <dd>{{ clock.days }}</dd>
+          </div>
+          <div>
+            <dt>{{ english ? 'Hours' : 'Horas' }}</dt>
+            <dd>{{ clock.hours.toString().padStart(2, '0') }}</dd>
+          </div>
+          <div>
+            <dt>{{ english ? 'Minutes' : 'Minutos' }}</dt>
+            <dd>{{ clock.minutes.toString().padStart(2, '0') }}</dd>
+          </div>
+          <div>
+            <dt>{{ english ? 'Seconds' : 'Segundos' }}</dt>
+            <dd>{{ clock.seconds.toString().padStart(2, '0') }}</dd>
+          </div>
+        </dl>
+        @if (clock.finished) {
+          <p role="status">
+            {{
+              english
+                ? 'Preparing the launch. See you soon!'
+                : 'Preparando o lançamento. Até breve!'
+            }}
+          </p>
         }
-      </nav>
-    }
+      }
+      <p class="technology-label">{{ english ? 'Built with' : 'Construído com' }}</p>
+      <ul class="technologies">
+        @for (icon of content().technologies; track icon) {
+          <li [attr.title]="technologyLabels[icon]">
+            <app-skill-icon [name]="icon" /><span class="technology-name">{{
+              technologyLabels[icon]
+            }}</span>
+          </li>
+        }
+      </ul>
+      @if (socialLinks().length) {
+        <nav
+          class="social-links"
+          [attr.aria-label]="english ? 'Social media and contact' : 'Redes sociais e contato'"
+        >
+          @for (link of socialLinks(); track $index) {
+            <a
+              mat-stroked-button
+              [attr.title]="link.label"
+              [href]="link.href"
+              [attr.target]="link.type === 'email' ? null : '_blank'"
+              [attr.rel]="link.type === 'email' ? null : 'noopener noreferrer'"
+            >
+              <app-contact-icon [type]="link.type" /><span class="social-name">{{
+                link.label
+              }}</span>
+            </a>
+          }
+        </nav>
+      }
+    </div>
   </div>
 </section>
