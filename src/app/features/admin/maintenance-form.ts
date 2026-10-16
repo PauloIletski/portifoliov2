@@ -1,3 +1,4 @@
+import { MaintenanceSocials } from './maintenance-socials';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -41,6 +42,7 @@ export class LaunchDateAdapter extends NativeDateAdapter {
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
   ],
   imports: [
+    MaintenanceSocials,
     ReactiveFormsModule,
     MatDatepickerModule,
     MatTimepickerModule,

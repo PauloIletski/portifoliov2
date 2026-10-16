@@ -98,3 +98,9 @@ O tapume substitui as páginas públicas, menu e rodapé, mantendo `/admin` e `/
 Se a consulta do tapume falhar, o portfólio permanece acessível. Esta tela é um controle de apresentação, não uma barreira de segurança para os dados publicados. O HTML prerenderizado contém o carregamento inicial, não os textos remotos. As políticas RLS permitem leitura pública somente do tapume ativo e reservam as alterações ao administrador autorizado.
 
 Verificação SQL: execute `supabase/tests/maintenance.sql` em um banco de desenvolvimento isolado. O teste verifica leitura de rascunhos, ativação, validação bilíngue, data, cadastro único e proibição de escrita para visitantes. Ele faz rollback ao terminar.
+
+### Redes sociais no tapume
+
+No formulário **Tapume**, use **Botões de redes e contato → Adicionar rede**. Cada botão possui rede/tipo, endereço e opção **Exibir no tapume**. É possível incluir vários itens, editar seus destinos e remover os que não serão usados. Os endereços e a visibilidade são compartilhados entre PT/EN; os rótulos são traduzidos automaticamente. Redes sociais usam URLs HTTP(S), WhatsApp gera `wa.me` e e-mail gera `mailto:`. As alterações são persistidas ao salvar o tapume.
+
+Aplique também `20261016021730_maintenance_social_links.sql` com `npx supabase db push`. A migration mantém tapumes antigos válidos e adiciona a validação dos links no banco, inclusive em chamadas diretas à API. A tabela e suas políticas RLS permanecem as mesmas. Os botões do tapume têm cadastro próprio na configuração do lançamento.

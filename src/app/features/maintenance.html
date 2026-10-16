@@ -44,5 +44,22 @@
         </li>
       }
     </ul>
+    @if (socialLinks().length) {
+      <nav
+        class="social-links"
+        [attr.aria-label]="english ? 'Social media and contact' : 'Redes sociais e contato'"
+      >
+        @for (link of socialLinks(); track $index) {
+          <a
+            mat-stroked-button
+            [href]="link.href"
+            [attr.target]="link.type === 'email' ? null : '_blank'"
+            [attr.rel]="link.type === 'email' ? null : 'noopener noreferrer'"
+          >
+            <app-contact-icon [type]="link.type" />{{ link.label }}
+          </a>
+        }
+      </nav>
+    }
   </div>
 </section>

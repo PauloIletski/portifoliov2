@@ -1,0 +1,67 @@
+<section aria-labelledby="maintenance-socials-title">
+  <div class="social-heading">
+    <h4 id="maintenance-socials-title">Botões de redes e contato</h4>
+    <button type="button" mat-stroked-button (click)="add()">Adicionar rede</button>
+  </div>
+  <p>Cadastre os links que aparecerão no tapume. Os botões são compartilhados entre os idiomas.</p>
+  @for (channel of channels.controls; track channel; let index = $index) {
+    <fieldset [formGroup]="channel">
+      <legend>Rede {{ index + 1 }}</legend>
+      <div class="social-fields">
+        <mat-form-field>
+          <mat-label>Rede ou tipo de contato</mat-label>
+          <mat-select formControlName="type">
+            @for (type of types; track type) {
+              <mat-option [value]="type">{{ label(type) }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Endereço ou número</mat-label>
+          <input
+            matInput
+            formControlName="value"
+            [placeholder]="
+              channel.controls.type.value === 'whatsapp'
+                ? '+55 (11) 99999-9999'
+                : channel.controls.type.value === 'email'
+                  ? 'voce@exemplo.com'
+                  : 'https://'
+            "
+          />
+          <mat-hint>{{
+            channel.controls.type.value === 'whatsapp'
+              ? 'Informe país, DDD e número para gerar o link wa.me.'
+              : channel.controls.type.value === 'email'
+                ? 'Informe um e-mail válido.'
+                : 'Informe a URL completa do perfil.'
+          }}</mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="social-actions">
+        <mat-slide-toggle formControlName="visible">Exibir no tapume</mat-slide-toggle>
+        <button
+          type="button"
+          mat-icon-button
+          [attr.aria-label]="'Remover rede ' + (index + 1)"
+          (click)="remove(index)"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M3 6h18M9 6V4h6v2M5 6l1 14h12l1-14M10 10v6M14 10v6" />
+          </svg>
+        </button>
+      </div>
+    </fieldset>
+  } @empty {
+    <p>Nenhuma rede cadastrada. Use Adicionar rede para incluir um botão.</p>
+  }
+</section>

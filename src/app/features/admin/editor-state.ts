@@ -176,7 +176,9 @@ export class EditorState {
         }
         if (
           field.type === 'channels' &&
-          (decodeChannels(value)?.length !== 1 || !contactHref(decodeChannels(value)![0]))
+          (!decodeChannels(value) ||
+            (this.kind() === 'contacts' &&
+              (decodeChannels(value)?.length !== 1 || !contactHref(decodeChannels(value)![0]))))
         ) {
           this.error.set(
             'Confira os contatos: WhatsApp precisa do código do país e DDD; redes precisam de uma URL HTTP(S) válida; e-mail precisa de um endereço válido.',

@@ -22,6 +22,11 @@ begin
     insert into public.maintenance(translations) values(payload);
     raise exception 'Multiple tapumes allowed';
   exception when unique_violation then null; end;
+  begin
+    update public.maintenance set translations=jsonb_set(jsonb_set(payload,'{pt-BR,channels}','[{"type":"linkedin","value":"javascript:alert(1)","visible":true}]'),'{en-US,channels}','[{"type":"linkedin","value":"javascript:alert(1)","visible":true}]') where id=record_id;
+    raise exception 'Unsafe social URL allowed';
+  exception when check_violation then null; end;
+  update public.maintenance set translations=jsonb_set(jsonb_set(payload,'{pt-BR,channels}','[{"type":"linkedin","value":"https://linkedin.com/in/example","visible":true},{"type":"whatsapp","value":"+55 (11) 99999-9999","visible":false}]'),'{en-US,channels}','[{"type":"linkedin","value":"https://linkedin.com/in/example","visible":true},{"type":"whatsapp","value":"+55 (11) 99999-9999","visible":false}]') where id=record_id;
   perform set_config('request.jwt.claim.sub',outsider::text,true);
   if exists(select from public.maintenance) then raise exception 'Outsider sees inactive tapume'; end if;
   update public.maintenance set published=true;

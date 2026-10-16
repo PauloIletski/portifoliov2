@@ -1,3 +1,6 @@
+import { MatButtonModule } from '@angular/material/button';
+import { ContactIcon } from '../shared/components/contact-icon/contact-icon';
+import { contactHref, contactLabel } from './contact/contact-channel';
 import {
   afterNextRender,
   Component,
@@ -23,12 +26,22 @@ export function countdownUntil(target: string, now: number) {
 }
 @Component({
   selector: 'app-maintenance',
-  imports: [SkillIcon],
+  imports: [SkillIcon, ContactIcon, MatButtonModule],
   templateUrl: './maintenance.html',
   styleUrl: './maintenance.sass',
 })
 export class Maintenance {
   protected readonly technologyLabels = TECHNOLOGY_LABELS;
+  protected readonly socialLinks = computed(() =>
+    (this.content().channels ?? [])
+      .filter((channel) => channel.visible)
+      .map((channel) => ({
+        ...channel,
+        href: contactHref(channel),
+        label: contactLabel(channel.type, this.english),
+      }))
+      .filter((channel) => !!channel.href),
+  );
   readonly content = input.required<MaintenanceContent>();
   protected readonly english = inject(LOCALE_ID).startsWith('en');
   private readonly now = signal(0);

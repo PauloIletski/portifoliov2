@@ -8,6 +8,7 @@ export interface Field {
 }
 export const fields: Record<ContentKind, readonly Field[]> = {
   maintenance: [
+    { key: 'channels', label: 'Redes sociais', type: 'channels', optional: true },
     { key: 'name', label: 'Frase' },
     { key: 'launchAt', label: 'Lançamento' },
     { key: 'technologies', label: 'Tecnologias', type: 'lines' },

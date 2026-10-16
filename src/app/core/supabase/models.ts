@@ -1,4 +1,4 @@
-import { ContactProfile } from '../../features/contact/contact-channel';
+import { ContactChannel, ContactProfile } from '../../features/contact/contact-channel';
 import { Project } from '../../features/projects/project';
 import { ExperienceEntry } from '../../features/experience/experience-entry';
 import { SkillIconName } from '../../shared/components/skill-icon/skill-icon';
@@ -15,6 +15,7 @@ export interface Skill {
   icon: SkillIconName;
 }
 export interface MaintenanceContent {
+  channels?: readonly ContactChannel[];
   name: string;
   launchAt: string;
   technologies: (typeof MAINTENANCE_TECHNOLOGIES)[number][];

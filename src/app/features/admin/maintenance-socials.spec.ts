@@ -1,0 +1,37 @@
+import { TestBed } from '@angular/core/testing';
+import { FormControl } from '@angular/forms';
+import { describe, expect, it } from 'vitest';
+import { MaintenanceSocials } from './maintenance-socials';
+describe('Maintenance social links editor', () => {
+  it('adds, edits, hides and removes independent links while synchronizing both languages', async () => {
+    const primary = new FormControl('[]', { nonNullable: true });
+    const translation = new FormControl('[]', { nonNullable: true });
+    const fixture = TestBed.createComponent(MaintenanceSocials);
+    fixture.componentRef.setInput('control', primary);
+    fixture.componentRef.setInput('translation', translation);
+    await fixture.whenStable();
+    const root = fixture.nativeElement as HTMLElement;
+    const add = root.querySelector<HTMLButtonElement>('.social-heading button')!;
+    add.click();
+    add.click();
+    await fixture.whenStable();
+    const inputs = root.querySelectorAll<HTMLInputElement>('input[formControlName=value]');
+    inputs[0].value = 'https://linkedin.com/in/example';
+    inputs[0].dispatchEvent(new Event('input'));
+    inputs[1].value = 'https://linkedin.com/in/second';
+    inputs[1].dispatchEvent(new Event('input'));
+    await fixture.whenStable();
+    root.querySelector<HTMLButtonElement>('button[role=switch]')!.click();
+    await fixture.whenStable();
+    const channels = JSON.parse(primary.value);
+    expect(channels).toHaveLength(2);
+    expect(channels[0].visible).toBe(false);
+    expect(channels[1].value).toContain('second');
+    expect(translation.value).toBe(primary.value);
+    root.querySelector<HTMLButtonElement>('[aria-label="Remover rede 1"]')!.click();
+    await fixture.whenStable();
+    expect(JSON.parse(primary.value)).toHaveLength(1);
+    expect(JSON.parse(primary.value)[0].value).toContain('second');
+    expect(translation.value).toBe(primary.value);
+  });
+});
