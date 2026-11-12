@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { Content } from '../../core/supabase/content';
+import { Content } from '../../core/data/content';
 import { Experience } from './experience';
 import { EXPERIENCES } from './experience-entry';
 

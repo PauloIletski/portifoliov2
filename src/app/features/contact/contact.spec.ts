@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { FormControl } from '@angular/forms';
 import { beforeEach, afterEach, describe, it, expect, vi } from 'vitest';
-import { Content } from '../../core/supabase/content';
+import { Content } from '../../core/data/content';
 import { Contact } from './contact';
 import { contactHref, decodeChannels } from './contact-channel';
 import { ContactFields } from '../admin/contact-fields';

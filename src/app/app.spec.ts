@@ -1,4 +1,4 @@
-import { Content } from './core/supabase/content';
+import { Content } from './core/data/content';
 import { Location } from '@angular/common';
 import { vi } from 'vitest';
 import { TestBed } from '@angular/core/testing';

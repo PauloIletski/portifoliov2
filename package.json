@@ -3,16 +3,21 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "concurrently --kill-others \"tsx server/dev.ts\" \"ng serve --proxy-config proxy.conf.json\"",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:portfoliov2": "node dist/portfoliov2/server/server.mjs",
-    "dev": "ng build --configuration development --localize --delete-output-path=false && concurrently --kill-others \"ng build --watch --configuration development --localize --delete-output-path=false\" \"python3 -m http.server 8080 --directory dist/portfoliov2/browser\"",
-    "prebuild": "node scripts/configure-supabase.mjs",
-    "prestart": "node scripts/configure-supabase.mjs",
-    "predev:preview": "node scripts/configure-supabase.mjs",
-    "supabase:config": "node scripts/configure-supabase.mjs"
+    "serve:ssr:portfoliov2": "tsx server/dev.ts",
+    "dev": "ng build --configuration development --localize && concurrently --kill-others \"ng build --watch --configuration development --localize --delete-output-path=false\" \"tsx server/dev.ts\"",
+    "preview": "tsx server/dev.ts",
+    "api:check": "tsc -p tsconfig.api.json",
+    "test:api": "tsx --test server/*.test.ts",
+    "db:setup": "tsx scripts/migration/setup.ts",
+    "db:export": "tsx scripts/migration/cli.ts export",
+    "db:validate": "tsx scripts/migration/cli.ts validate",
+    "db:import": "tsx scripts/migration/cli.ts import",
+    "db:verify": "tsx scripts/migration/cli.ts verify",
+    "admin:provision": "tsx scripts/migration/admin.ts"
   },
   "private": true,
   "packageManager": "npm@11.6.2",
@@ -28,11 +33,16 @@
     "@angular/platform-server": "^21.2.0",
     "@angular/router": "^21.2.0",
     "@angular/ssr": "^21.2.26",
-    "@supabase/supabase-js": "^2.117.3",
+    "@better-auth/mongo-adapter": "1.7.22",
+    "@vercel/blob": "2.9.0",
+    "better-auth": "1.7.22",
     "express": "^5.1.0",
+    "mongodb": "7.9.0",
     "motion": "^14.2.0",
+    "resend": "6.38.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@angular/build": "^21.2.26",
@@ -44,8 +54,20 @@
     "concurrently": "^10.0.6",
     "jsdom": "^28.0.0",
     "prettier": "^3.8.1",
-    "supabase": "^2.121.0",
+    "tsx": "4.23.15",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
+  },
+  "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
+  "overrides": {
+    "@vercel/cli-config": {
+      "zod": "$zod"
+    },
+    "@vercel/blob": {
+      "undici": "6.29.1"
+    }
   }
 }

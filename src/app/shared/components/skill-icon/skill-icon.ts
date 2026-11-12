@@ -1,6 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 
 const ICONS = {
+  mongodb: { path: 'M12 2C7 7 5 13 9 18l3 3 3-3c4-5 2-11-3-16Zm0 5v15' },
   supabase: { path: 'M13 2 3 14h8l-1 8L21 10h-8l1-8Z' },
   motion: { path: 'M3 17 9 7h4L7 17H3Zm7 0 6-10h5l-6 10h-5Z' },
   angular: { path: 'M12 2 3 6l1.5 12L12 22l7.5-4L21 6 12 2ZM7.5 17 12 6l4.5 11M9 13h6' },

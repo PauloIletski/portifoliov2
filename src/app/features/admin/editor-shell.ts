@@ -12,7 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { EditorRow } from '../../core/supabase/models';
+import { EditorRow } from '../../core/data/models';
 import { EditorState } from './editor-state';
 @Component({
   selector: 'app-editor-shell',

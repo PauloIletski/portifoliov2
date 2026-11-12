@@ -1,13 +1,13 @@
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { Auth } from '../../core/supabase/auth';
+import { Auth } from '../../core/data/auth';
 @Component({
   selector: 'app-admin-login',
-  imports: [MatProgressSpinnerModule, ReactiveFormsModule, MatButtonModule, MatInputModule],
+  imports: [MatProgressSpinnerModule, ReactiveFormsModule, MatButtonModule, MatInputModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.sass',
 })

@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, effect, inject, input } from '@angular/co
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { decodeDetails } from '../../core/supabase/editor-schema';
+import { decodeDetails } from '../../core/data/editor-schema';
 type DetailForm = FormGroup<{ title: FormControl<string>; description: FormControl<string> }>;
 @Component({
   selector: 'app-project-details',

@@ -1,5 +1,7 @@
 # Supabase e administração
 
+> Referência histórica da integração anterior. A aplicação atual usa Atlas, Better Auth, Blob e Resend. Consulte [mongodb.md](mongodb.md) para os comandos atuais. Os scripts antigos foram arquivados em `supabase/legacy/`.
+
 A integração usa Supabase Auth, Postgres e Storage. O layout público permanece o mesmo. Os dados são buscados no navegador após a hidratação, sem conexão com o banco durante o build. O HTML estático contém a estrutura e o estado de carregamento; o conteúdo remoto só aparece após a consulta no navegador e não faz parte do HTML inicial para SEO.
 
 ## Configuração do projeto hospedado
@@ -25,6 +27,10 @@ O site não usa mocks como fallback. Durante a consulta, mostra carregamento; um
 
 ## Conteúdo e painel
 
+### Recuperação de senha
+
+No login do admin, **Esqueci minha senha** envia um link pelo Supabase Auth. Em Authentication → URL Configuration, autorize as URLs completas `/admin/reset-password` e `/en/admin/reset-password` para cada origem de desenvolvimento e produção. O redirecionamento usa a origem e o idioma atuais. Configure também o envio de e-mails do projeto no Supabase. Links inválidos ou expirados permitem solicitar outro envio. Após salvar a nova senha, a sessão local é encerrada e o usuário retorna ao login.
+
 O admin usa um painel lateral com Projetos, Experiências, Perfil e Habilidades. Cada área possui seu próprio componente de formulário e uma instância local de `EditorState`; os campos e a seleção não são compartilhados entre áreas. A listagem, publicação e ações comuns ficam em `EditorShell`. Cada categoria inicia na listagem; **Adicionar** abre um formulário vazio e clicar no registro abre a edição. **Voltar à listagem** fecha o formulário. Salvar com sucesso retorna à lista; erros mantêm o formulário aberto e os campos preenchidos. A navegação lateral ocupa toda a altura da tela e fica compacta no mobile; apenas a área dos formulários tem rolagem. Áreas visitadas ficam preservadas durante a sessão do painel; ao retornar, os campos e a seleção permanecem. A área inativa fica oculta e fora da navegação por teclado. A troca leva o foco e a rolagem ao início do conteúdo ativo. Recarregar a página ainda descarta alterações não salvas.
 
 - Projetos, experiências, perfil e habilidades possuem `position`, `published` e `translations` com `pt-BR` e `en-US`. Os UUIDs pertencem ao banco; os adaptadores preservam os contratos dos componentes públicos.
@@ -34,7 +40,7 @@ O admin usa um painel lateral com Projetos, Experiências, Perfil e Habilidades.
 - Imagens aceitam JPEG, PNG e WebP até 5 MB, com descrição alternativa nos dois idiomas. O bucket `portfolio-images` é público: não envie material privado nem imagens de rascunhos confidenciais. Somente o administrador pode enviar, substituir ou excluir objetos.
 - Substituir uma imagem ou excluir um projeto não remove arquivos do Storage, pois podem ter outras referências. Arquivos enviados sem salvar podem ficar sem referência; a limpeza é manual no Dashboard nesta versão.
 - Exclusão de registro exige confirmação. Falhas de gravação preservam os campos preenchidos. Publicação e alterações aparecem na próxima abertura da página ou tentativa de carregamento, sem Realtime.
-- Recuperação de senha é feita pelo Dashboard. Não há cadastro público, gerenciamento de usuários ou formulário de contato nesta versão.
+- Recuperação de senha está disponível em **Esqueci minha senha** no login do admin. Não há cadastro público, gerenciamento de usuários ou formulário de contato nesta versão.
 
 ## Desenvolvimento local e tipos
 

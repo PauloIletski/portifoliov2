@@ -6,15 +6,7 @@ export class Content {
   private readonly connection = inject(Connection);
   private readonly locale: Locale = inject(LOCALE_ID).startsWith('en') ? 'en-US' : 'pt-BR';
   async list<K extends ContentKind>(kind: K): Promise<readonly ContentMap[K][] | undefined> {
-    const client = await this.connection.get();
-    if (!client) throw new Error('Supabase não configurado.');
-    const { data, error } = await client
-      .from(kind as ContentKind)
-      .select('*')
-      .eq('published', true)
-      .order('position')
-      .order('id');
-    if (error) throw error;
+    const data = await this.connection.list(kind);
     return (data as unknown as ContentRow<ContentMap[K]>[]).map((row) => ({
       ...row.translations[this.locale],
       id: row.id,

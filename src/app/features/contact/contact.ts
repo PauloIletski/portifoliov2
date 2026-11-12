@@ -1,7 +1,7 @@
 import { Component, computed, inject, LOCALE_ID } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { publicContent } from '../../core/supabase/content';
-import { ContentStatus } from '../../core/supabase/content-status';
+import { publicContent } from '../../core/data/content';
+import { ContentStatus } from '../../core/data/content-status';
 import { MotionEnter } from '../../shared/directives/motion-enter';
 import { ContactIcon } from '../../shared/components/contact-icon/contact-icon';
 import { contactHref, contactLabel } from './contact-channel';

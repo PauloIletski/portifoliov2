@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { Connection } from '../../core/supabase/connection';
+import { Connection } from '../../core/data/connection';
 import { EditorShell } from './editor-shell';
 import { EditorState } from './editor-state';
 
 describe('Record list deletion', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [EditorState, { provide: Connection, useValue: { get: vi.fn() } }],
+      providers: [EditorState, { provide: Connection, useValue: { list: vi.fn() } }],
     });
   });
   async function setup() {

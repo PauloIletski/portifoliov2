@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/portfoliov2/browser",
+  "rewrites": [{ "source": "/api/:path*", "destination": "/api" }],
+  "headers": [
+    { "source": "/admin/:path*", "headers": [{ "key": "Cache-Control", "value": "no-store" }] },
+    { "source": "/en/admin/:path*", "headers": [{ "key": "Cache-Control", "value": "no-store" }] }
+  ]
+}

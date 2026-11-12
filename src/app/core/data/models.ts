@@ -36,7 +36,7 @@ export interface ContentRow<T> {
   published: boolean;
   translations: Record<Locale, T>;
 }
-export type { Database, Json } from './database.types';
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export interface EditorRow {
   id: string;
@@ -52,6 +52,7 @@ export const MAINTENANCE_TECHNOLOGIES = [
   'sass',
   'material',
   'supabase',
+  'mongodb',
   'motion',
   'node',
   'api',
@@ -64,6 +65,7 @@ export const TECHNOLOGY_LABELS: Record<(typeof MAINTENANCE_TECHNOLOGIES)[number]
   sass: 'Sass',
   material: 'Angular Material',
   supabase: 'Supabase',
+  mongodb: 'MongoDB',
   motion: 'Motion',
   node: 'Node.js',
   api: 'APIs REST',

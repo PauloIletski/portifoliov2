@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { Connection } from '../../core/supabase/connection';
+import { Connection } from '../../core/data/connection';
 import { Admin } from './admin';
 import { EditorState } from './editor-state';
 import { ProjectForm } from './project-form';
@@ -27,15 +27,10 @@ describe('Admin sections', () => {
               },
             ]
           : [];
-      const query = { select: () => query, order: vi.fn() };
-      query.order.mockReturnValueOnce(query).mockResolvedValueOnce({ data: rows, error: null });
-      return query;
+      return Promise.resolve(rows);
     });
     TestBed.configureTestingModule({
-      providers: [
-        provideRouter([]),
-        { provide: Connection, useValue: { get: async () => ({ from }) } },
-      ],
+      providers: [provideRouter([]), { provide: Connection, useValue: { list: from } }],
     });
   });
   afterEach(() => vi.restoreAllMocks());
@@ -60,7 +55,7 @@ describe('Admin sections', () => {
     expect(root.querySelector('app-experience-form')).not.toBeNull();
     expect(root.querySelectorAll('.area-panel:not([hidden]) form:not([hidden])')).toHaveLength(0);
     expect(buttons[1].getAttribute('aria-current')).toBe('page');
-    expect(from).toHaveBeenCalledWith('experiences');
+    expect(from).toHaveBeenCalledWith('experiences', true);
   }, 20000);
   it('keeps controls and record selection isolated between areas', async () => {
     const fixture = TestBed.createComponent(Admin);
@@ -78,7 +73,7 @@ describe('Admin sections', () => {
     expect(skills.control('pt-BR', 'name').value).toBe('');
     expect(skills.form.controls['pt-BR:company']).toBeUndefined();
     expect(skills.form.controls['pt-BR:group']).toBeDefined();
-    expect(from).toHaveBeenCalledWith('skills');
+    expect(from).toHaveBeenCalledWith('skills', true);
     fixture.nativeElement.querySelectorAll('.section-link')[0].click();
     await fixture.whenStable();
     const restored = fixture.debugElement

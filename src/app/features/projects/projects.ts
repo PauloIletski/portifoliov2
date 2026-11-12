@@ -1,5 +1,5 @@
-import { publicContent } from '../../core/supabase/content';
-import { ContentStatus } from '../../core/supabase/content-status';
+import { publicContent } from '../../core/data/content';
+import { ContentStatus } from '../../core/data/content-status';
 import { Component, computed, inject, LOCALE_ID, input, linkedSignal } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';

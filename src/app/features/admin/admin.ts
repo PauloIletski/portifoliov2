@@ -10,8 +10,8 @@ import {
   viewChild,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { Auth } from '../../core/supabase/auth';
-import { ContentKind } from '../../core/supabase/models';
+import { Auth } from '../../core/data/auth';
+import { ContentKind } from '../../core/data/models';
 import { ProjectForm } from './project-form';
 import { ExperienceForm } from './experience-form';
 import { ProfileForm } from './profile-form';

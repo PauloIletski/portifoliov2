@@ -11,7 +11,7 @@ import {
   LOCALE_ID,
   signal,
 } from '@angular/core';
-import { MaintenanceContent, TECHNOLOGY_LABELS } from '../core/supabase/models';
+import { MaintenanceContent, TECHNOLOGY_LABELS } from '../core/data/models';
 import { SkillIcon } from '../shared/components/skill-icon/skill-icon';
 export function countdownUntil(target: string, now: number) {
   const milliseconds = Date.parse(target) - now;

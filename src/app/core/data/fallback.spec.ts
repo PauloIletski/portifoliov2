@@ -21,7 +21,14 @@ describe('Remote content states', () => {
       providers: [
         provideRouter([]),
         { provide: Content, useValue: { list } },
-        { provide: Connection, useValue: { get: async () => undefined } },
+        {
+          provide: Connection,
+          useValue: {
+            list: async () => {
+              throw new Error('Serviço não configurado');
+            },
+          },
+        },
       ],
     });
   });

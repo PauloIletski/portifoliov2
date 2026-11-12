@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { FormControl } from '@angular/forms';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { Connection } from '../../core/supabase/connection';
-import { decodeDetails, encodeField, fields } from '../../core/supabase/editor-schema';
+import { Connection } from '../../core/data/connection';
+import { decodeDetails, encodeField, fields } from '../../core/data/editor-schema';
 import { PROJECTS } from '../projects/project';
 import { EditorState } from './editor-state';
 import { ProjectDetails } from './project-details';
@@ -12,12 +12,14 @@ describe('Project registration', () => {
   const single = vi.fn();
   beforeEach(() => {
     vi.resetAllMocks();
-    const result = { select: () => ({ single }), insert, order: vi.fn() };
-    result.order.mockReturnValueOnce(result).mockResolvedValueOnce({ data: [], error: null });
-    insert.mockReturnValue(result);
+    insert.mockImplementation(async (_kind: string, payload: unknown) => {
+      const result = await single();
+      if (result.error) throw result.error;
+      return { ...(payload as object), ...result.data };
+    });
     single.mockResolvedValue({ data: { id: 'created-project' }, error: null });
     TestBed.configureTestingModule({
-      providers: [{ provide: Connection, useValue: { get: async () => ({ from: () => result }) } }],
+      providers: [{ provide: Connection, useValue: { list: async () => [], save: insert } }],
     });
   });
   function fill(state: EditorState) {
@@ -35,7 +37,7 @@ describe('Project registration', () => {
     fill(state);
     state.published.setValue(true);
     await state.save();
-    const payload = insert.mock.calls[0][0];
+    const payload = insert.mock.calls[0][1];
     expect(payload.published).toBe(true);
     expect(payload.translations['pt-BR'].name).toBe(PROJECTS[0].name);
     expect(payload.translations['en-US'].name).toBe('Personal portfolio');

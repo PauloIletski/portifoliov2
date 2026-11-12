@@ -4,10 +4,16 @@ import { randomUUID } from 'node:crypto';
 import assert from 'node:assert/strict';
 import { createClient } from '@supabase/supabase-js';
 const status = JSON.parse(
-  execFileSync('npx', ['supabase', 'status', '-o', 'json'], {
-    encoding: 'utf8',
-    stdio: ['ignore', 'pipe', 'pipe'],
-  }),
+  execFileSync(
+    process.platform === 'win32' ? (process.env.ComSpec ?? 'cmd.exe') : 'npx',
+    process.platform === 'win32'
+      ? ['/d', '/s', '/c', 'npx.cmd supabase status -o json']
+      : ['supabase', 'status', '-o', 'json'],
+    {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'pipe'],
+    },
+  ),
 );
 const url = status.API_URL;
 assert.ok(['localhost', '127.0.0.1'].includes(new URL(url).hostname), 'Local stack required');

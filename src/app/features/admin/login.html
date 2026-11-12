@@ -41,6 +41,7 @@
       <button class="login-submit" type="submit" mat-flat-button [disabled]="busy()">
         {{ busy() ? 'Entrando…' : 'Entrar' }}
       </button>
+      <a mat-button routerLink="/admin/forgot-password">Esqueci minha senha</a>
       @if (busy()) {
         <div class="loading-status login-progress" role="status">
           <mat-spinner [diameter]="24" [strokeWidth]="3" aria-hidden="true" />

@@ -9,7 +9,7 @@ import {
   MAT_DATE_LOCALE,
   provideNativeDateAdapter,
 } from '@angular/material/core';
-import { MAINTENANCE_TECHNOLOGIES, TECHNOLOGY_LABELS } from '../../core/supabase/models';
+import { MAINTENANCE_TECHNOLOGIES, TECHNOLOGY_LABELS } from '../../core/data/models';
 import { Component, effect, inject, Injectable } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';

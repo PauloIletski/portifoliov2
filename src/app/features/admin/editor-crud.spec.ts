@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { Connection } from '../../core/supabase/connection';
-import { EditorRow } from '../../core/supabase/models';
+import { Connection } from '../../core/data/connection';
+import { EditorRow } from '../../core/data/models';
 import { EditorState } from './editor-state';
 
 describe('Editor CRUD reflects saved records', () => {
@@ -9,53 +9,6 @@ describe('Editor CRUD reflects saved records', () => {
   let next: number;
   let failReads: boolean;
   let failDelete: boolean;
-  class Query {
-    private operation = 'read';
-    private payload: Partial<EditorRow> = {};
-    private id = '';
-    select() {
-      return this;
-    }
-    order() {
-      return this;
-    }
-    eq(_key: string, id: string) {
-      this.id = id;
-      return this;
-    }
-    insert(payload: Partial<EditorRow>) {
-      this.operation = 'insert';
-      this.payload = payload;
-      return this;
-    }
-    update(payload: Partial<EditorRow>) {
-      this.operation = 'update';
-      this.payload = payload;
-      return this;
-    }
-    delete() {
-      this.operation = 'delete';
-      return this;
-    }
-    then(resolve: (value: { data: EditorRow[]; error: Error | null }) => unknown) {
-      return Promise.resolve({
-        data: structuredClone(records),
-        error: failReads ? new Error('Read failed') : null,
-      }).then(resolve);
-    }
-    async single() {
-      if (this.operation === 'delete') {
-        const found = records.find((record) => record.id === this.id);
-        if (!found || failDelete) return { data: null, error: new Error('Registro não excluído') };
-        records = records.filter((record) => record.id !== this.id);
-        return { data: { id: found.id }, error: null };
-      }
-      const id = this.operation === 'insert' ? 'row-' + next++ : this.id;
-      const row = { id, ...this.payload } as EditorRow;
-      records = [...records.filter((record) => record.id !== id), row];
-      return { data: structuredClone(row), error: null };
-    }
-  }
   beforeEach(() => {
     records = [];
     next = 1;
@@ -63,7 +16,27 @@ describe('Editor CRUD reflects saved records', () => {
     failDelete = false;
     TestBed.configureTestingModule({
       providers: [
-        { provide: Connection, useValue: { get: async () => ({ from: () => new Query() }) } },
+        {
+          provide: Connection,
+          useValue: {
+            list: async () => {
+              if (failReads) throw new Error('Read failed');
+              return structuredClone(records);
+            },
+            save: async (_kind: string, payload: Omit<EditorRow, 'id'>, selected?: string) => {
+              const id = selected ?? 'row-' + next++;
+              const row = { id, ...payload };
+              records = [...records.filter((record) => record.id !== id), row];
+              return structuredClone(row);
+            },
+            remove: async (_kind: string, id: string) => {
+              if (failDelete || !records.some((record) => record.id === id))
+                throw new Error('Registro não excluído');
+              records = records.filter((record) => record.id !== id);
+              return { id };
+            },
+          },
+        },
       ],
     });
   });

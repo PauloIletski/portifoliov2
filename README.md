@@ -4,10 +4,16 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ## Development server
 
+### Windows (PowerShell)
+
+Install dependencies using `npm.cmd ci`. Run `npm.cmd start` for the development server, `npm.cmd run build` for the production build, and `npm.cmd test -- --watch=false` for unit tests.
+
+For both language versions, run `npm.cmd run dev` and open `http://127.0.0.1:8080/` or `http://127.0.0.1:8080/en/`. To preview an existing build, run `npm.cmd run preview`. The preview server uses Node.js and supports direct access to application routes.
+
 To start a local development server, run:
 
-```bash
-ng serve
+```powershell
+npm.cmd start
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
@@ -58,6 +64,6 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
-## Supabase e administração
+## Dados e administração
 
-Consulte [docs/supabase.md](docs/supabase.md) para configurar o projeto, aplicar migrations e seed, autorizar o administrador e acessar `/admin/login`. A configuração pública usa `.env.example`; nenhum segredo deve ser enviado ao frontend.
+Consulte [docs/mongodb.md](docs/mongodb.md) para configurar MongoDB Atlas, Better Auth, Vercel Blob e Resend, migrar os dados e provisionar o administrador. O painel está em `/admin/login`. As credenciais ficam no backend. O schema Supabase anterior permanece documentado em `supabase/`.

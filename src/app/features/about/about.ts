@@ -1,5 +1,5 @@
-import { publicContent } from '../../core/supabase/content';
-import { ContentStatus } from '../../core/supabase/content-status';
+import { publicContent } from '../../core/data/content';
+import { ContentStatus } from '../../core/data/content-status';
 import { Component, inject, LOCALE_ID } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';

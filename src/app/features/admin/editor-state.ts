@@ -1,9 +1,9 @@
 import { contactHref, contactLabel, decodeChannels } from '../contact/contact-channel';
-import { EditorRow as Row } from '../../core/supabase/models';
+import { EditorRow as Row } from '../../core/data/models';
 import { afterNextRender, Injectable, inject, signal } from '@angular/core';
 import { FormControl, FormRecord } from '@angular/forms';
-import { Connection } from '../../core/supabase/connection';
-import { ContentKind, Json, Locale, MAINTENANCE_TECHNOLOGIES } from '../../core/supabase/models';
+import { Connection } from '../../core/data/connection';
+import { ContentKind, Locale, MAINTENANCE_TECHNOLOGIES } from '../../core/data/models';
 import {
   decodeDetails,
   decodeField,
@@ -11,7 +11,7 @@ import {
   fields,
   groups,
   icons,
-} from '../../core/supabase/editor-schema';
+} from '../../core/data/editor-schema';
 @Injectable()
 export class EditorState {
   private readonly connection = inject(Connection);
@@ -37,24 +37,11 @@ export class EditorState {
     this.edit();
     this.formOpen.set(false);
   }
-  private async client() {
-    const client = await this.connection.get();
-    if (!client) throw new Error('Supabase não configurado.');
-    return client;
-  }
   async load() {
     this.busy.set(true);
     this.error.set('');
     try {
-      const { data, error } = await (
-        await this.client()
-      )
-        .from(this.kind())
-        .select('*')
-        .order('position')
-        .order('id');
-      if (error) throw error;
-      const rows = data as unknown as Row[];
+      const rows = await this.connection.list(this.kind(), true);
       this.showRows(rows);
     } catch (e) {
       this.fail(e);
@@ -224,17 +211,12 @@ export class EditorState {
     }
     this.busy.set(true);
     try {
-      const client = await this.client();
       const payload = {
-        translations: translations as NonNullable<Json>,
+        translations,
         position: this.position.value,
         published: this.published.value,
       };
-      const query = this.selected()
-        ? client.from(this.kind()).update(payload).eq('id', this.selected()!)
-        : client.from(this.kind()).insert(payload);
-      const { data, error } = await query.select().single();
-      if (error) throw error;
+      const data = await this.connection.save(this.kind(), payload, this.selected());
       this.selected.set(data.id);
 
       const saved: Row = { ...payload, ...data } as Row;
@@ -267,15 +249,7 @@ export class EditorState {
     this.message.set('');
     this.busy.set(true);
     try {
-      const { data, error } = await (
-        await this.client()
-      )
-        .from(this.kind())
-        .delete()
-        .eq('id', removedId)
-        .select('id')
-        .single();
-      if (error) throw error;
+      const data = await this.connection.remove(this.kind(), removedId);
       if (data?.id !== removedId)
         throw new Error('O registro não foi excluído. Recarregue a listagem e tente novamente.');
       const rows = this.rows().filter((row) => row.id !== removedId);
@@ -317,19 +291,11 @@ export class EditorState {
       const width = bitmap.width,
         height = bitmap.height;
       bitmap.close();
-      const client = await this.client();
-      const path =
-        crypto.randomUUID() +
-        '.' +
-        { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[file.type];
-      const { error } = await client.storage
-        .from('portfolio-images')
-        .upload(path, file, { contentType: file.type, upsert: false });
-      if (error) throw error;
+      const url = await this.connection.upload(file);
       // Replaced images are retained: they may still be referenced by another published item.
 
       this.image = {
-        src: client.storage.from('portfolio-images').getPublicUrl(path).data.publicUrl,
+        src: url,
         width,
         height,
       };
