@@ -17,3 +17,6 @@
 @if (!isAdmin() && !maintenance.loading() && !activeMaintenance()) {
   <app-footer />
 }
+@if (!isAdmin()) {
+  <app-ai-chat />
+}

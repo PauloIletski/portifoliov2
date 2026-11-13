@@ -9,10 +9,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs';
 import { Header } from './shared/components/header/header';
 import { Footer } from './shared/components/footer/footer';
+import { AiChat } from './shared/components/ai-chat/ai-chat';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Footer, RouteSlide, ContentStatus, Maintenance],
+  imports: [RouterOutlet, Header, Footer, RouteSlide, ContentStatus, Maintenance, AiChat],
   templateUrl: './app.html',
   styleUrl: './app.sass',
   host: {

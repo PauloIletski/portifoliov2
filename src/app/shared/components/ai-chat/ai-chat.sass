@@ -1,0 +1,68 @@
+:host
+  position: fixed
+  right: max(1.25rem, env(safe-area-inset-right))
+  bottom: max(1.25rem, env(safe-area-inset-bottom))
+  z-index: 100
+
+button
+  font: inherit
+  cursor: pointer
+
+.launcher
+  width: 3.5rem
+  height: 3.5rem
+  border: 1px solid var(--color-accent)
+  border-radius: 50%
+  background: var(--color-accent)
+  color: var(--color-background)
+  font-weight: 700
+  box-shadow: 0 8px 28px #0006
+
+dialog
+  position: fixed
+  inset: auto 1.25rem 5.75rem auto
+  margin: 0
+  padding: 0
+  width: min(22rem, calc(100vw - 2.5rem))
+  max-height: calc(100dvh - 7rem)
+  overflow: auto
+  border: 1px solid var(--color-border)
+  border-radius: 1rem
+  background: var(--color-background)
+  color: var(--color-text)
+  box-shadow: 0 16px 48px #0006
+
+  &::backdrop
+    background: #0005
+
+header
+  display: flex
+  align-items: center
+  justify-content: space-between
+  gap: 1rem
+  padding: .75rem 1rem
+  border-bottom: 1px solid var(--color-border)
+
+  h2
+    margin: 0
+    font-size: 1rem
+
+  button
+    width: 2.75rem
+    height: 2.75rem
+    border: 0
+    border-radius: .5rem
+    background: var(--color-surface)
+    color: var(--color-text)
+    font-size: 1.5rem
+
+.messages
+  padding: 1.25rem
+  min-height: 10rem
+
+  p
+    margin: 0
+    padding: 1rem
+    border-radius: .75rem .75rem .75rem 0
+    background: var(--color-surface)
+    line-height: 1.5
