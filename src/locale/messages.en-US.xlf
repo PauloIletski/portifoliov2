@@ -87,8 +87,8 @@
         <target state="translated">Contact under construction.</target>
       </trans-unit>
       <trans-unit id="app.title" datatype="html">
-        <source>Paulo Vieira | Engenheiro de Software</source>
-        <target state="translated">Paulo Vieira | Software Engineer</target>
+        <source>PV. | Paulo Vieira | Engenheiro de Software</source>
+        <target state="translated">PV. | Paulo Vieira | Software Engineer</target>
       </trans-unit>
       <trans-unit id="header.menu" datatype="html">
         <source>Menu</source>

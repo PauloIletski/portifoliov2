@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="12" fill="#0b1020" />
+  <text x="5" y="46" fill="#f5f7fa" font-family="Segoe UI, Arial, sans-serif" font-size="42" font-weight="750" letter-spacing="-6">PV</text>
+  <circle cx="56" cy="44" r="3.5" fill="#22c6ae" />
+</svg>
