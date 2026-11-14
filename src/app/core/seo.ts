@@ -49,8 +49,16 @@ export class SeoTitleStrategy extends TitleStrategy {
       'og:title': title, 'og:description': description, 'og:url': url,
       'og:type': 'website', 'og:site_name': 'PV. | Paulo Vieira',
       'og:locale': this.english ? 'en_US' : 'pt_BR',
+      'og:image': `${origin}/social-preview-pv.png`,
+      'og:image:secure_url': `${origin}/social-preview-pv.png`,
+      'og:image:type': 'image/png',
+      'og:image:width': '1200',
+      'og:image:height': '630',
+      'og:image:alt': 'PV. | Paulo Vieira',
     })) this.meta.updateTag({ property, content });
-    this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.meta.updateTag({ name: 'twitter:image', content: `${origin}/social-preview-pv.png` });
+    this.meta.updateTag({ name: 'twitter:image:alt', content: 'PV. | Paulo Vieira' });
     this.meta.updateTag({ name: 'twitter:title', content: title });
     this.meta.updateTag({ name: 'twitter:description', content: description });
     this.document.head.querySelectorAll('link[rel="canonical"], link[rel="alternate"][hreflang]').forEach(link => link.remove());
