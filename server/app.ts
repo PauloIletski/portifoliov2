@@ -155,7 +155,7 @@ export function createApi() {
     if (error instanceof ZodError || error instanceof SyntaxError) {
       response
         .status(400)
-        .json({ message: 'Dados inválidos. Revise os campos e os dois idiomas.' });
+        .json({ message: 'Dados inválidos. Revise os campos preenchidos e os obrigatórios em português.' });
       return;
     }
     if (error instanceof Error && 'status' in error && error.status === 413) {

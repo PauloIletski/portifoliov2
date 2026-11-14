@@ -136,8 +136,8 @@ export class EditorState {
       const payload: Record<string, unknown> = {};
       for (const field of fields[this.kind()]) {
         const value = this.form.controls[locale + ':' + field.key].value.trim();
-        if (this.published.value && !field.optional && !value) {
-          this.error.set('Preencha os dois idiomas antes de publicar.');
+        if (this.published.value && locale === 'pt-BR' && !field.optional && !value) {
+          this.error.set(`Preencha o campo obrigatório em português: ${field.label}.`);
           return;
         }
         if (this.kind() === 'maintenance') {
@@ -176,11 +176,11 @@ export class EditorState {
           const details = decodeDetails(value);
           if (
             !details ||
-            (this.published.value &&
+            (this.published.value && locale === 'pt-BR' &&
               (!details.length || details.some((detail) => !detail.title || !detail.description)))
           ) {
             this.error.set(
-              'Preencha o título e a descrição de cada detalhe nos dois idiomas antes de publicar.',
+              'Preencha o título e a descrição de cada detalhe em português antes de publicar.',
             );
             return;
           }
@@ -193,8 +193,8 @@ export class EditorState {
       }
       if (this.kind() === 'projects' && this.image) {
         const alt = this.form.controls[locale + ':imageAlt'].value.trim();
-        if (this.published.value && !alt) {
-          this.error.set('Descreva a imagem nos dois idiomas.');
+        if (this.published.value && locale === 'pt-BR' && !alt) {
+          this.error.set('Preencha a descrição obrigatória da imagem em português.');
           return;
         }
         payload['image'] = { ...this.image, alt };

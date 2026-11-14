@@ -167,7 +167,7 @@ export function payloadSchema(kind: Kind) {
         const payload = row.translations[locale] as Record<string, unknown>;
         // Channels may be hidden or empty; their own schema validates addresses.
         const { channels, ...required } = payload;
-        if (row.published && !complete(required))
+        if (row.published && locale === 'pt-BR' && !complete(required))
           context.addIssue({
             code: 'custom',
             message: `Preencha os campos obrigatórios em ${locale}.`,

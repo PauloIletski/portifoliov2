@@ -145,6 +145,20 @@
         }}</mat-checkbox>
       }
     </div>
+    <aside aria-label="Campos obrigatórios">
+      <p>Para publicar, preencha os campos obrigatórios em português. O inglês é opcional.</p>
+      <p>
+        Campos obrigatórios:
+        @for (field of state.fields[state.kind()]; track field.key) {
+          @if (!field.optional) {
+            <span>{{ field.label }}; </span>
+          }
+        }
+      </p>
+      @if (state.kind() === 'projects') {
+        <p>Ao adicionar uma imagem, preencha também a descrição em português.</p>
+      }
+    </aside>
     <ng-content />
     <div class="actions">
       <button type="submit" mat-flat-button [disabled]="state.busy()">

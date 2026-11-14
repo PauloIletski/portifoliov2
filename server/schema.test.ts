@@ -11,11 +11,18 @@ const draft = () => ({
     'en-US': { name: '', role: '', description: '', descriptionMore: '', principles: [] },
   },
 });
-test('drafts accept empty fields, publication requires both complete translations', () => {
+test('drafts accept empty fields, publication requires Portuguese and accepts empty English', () => {
   assert.doesNotThrow(() => parsePayload('profiles', draft()));
   assert.throws(() => parsePayload('profiles', { ...draft(), published: true }));
   assert.throws(() => parsePayload('profiles', { ...draft(), position: -1 }));
   assert.throws(() => parsePayload('profiles', { ...draft(), unexpected: true }));
+  const row = draft();
+  row.published = true;
+  Object.assign(row.translations['pt-BR'], {
+    name: 'Paulo', role: 'Engenheiro', description: 'Descrição',
+    descriptionMore: 'Complemento', principles: [{ title: 'Qualidade', description: 'Testes' }],
+  });
+  assert.doesNotThrow(() => parsePayload('profiles', row));
 });
 test('contacts reject multiple channels, unknown types and unsafe URLs', () => {
   const contact = (value: unknown) => ({

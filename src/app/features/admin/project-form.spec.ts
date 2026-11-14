@@ -46,11 +46,20 @@ describe('Project registration', () => {
     expect(payload.translations['pt-BR'].demoRoute).toBe(PROJECTS[0].demoRoute);
     expect(state.selected()).toBe('created-project');
   });
+  it('publishes with Portuguese filled and English empty', async () => {
+    const state = TestBed.runInInjectionContext(() => new EditorState());
+    fill(state);
+    for (const field of fields.projects) state.control('en-US', field.key).setValue('');
+    state.published.setValue(true);
+    await state.save();
+    expect(insert).toHaveBeenCalled();
+    expect(state.error()).toBe('');
+  });
   it('blocks publication with an incomplete detail and keeps the entered fields', async () => {
     const state = TestBed.runInInjectionContext(() => new EditorState());
     fill(state);
     state.published.setValue(true);
-    state.control('en-US', 'details').setValue('[{"title":"Feature","description":""}]');
+    state.control('pt-BR', 'details').setValue('[{"title":"Feature","description":""}]');
     await state.save();
     expect(insert).not.toHaveBeenCalled();
     expect(state.error()).toContain('título e a descrição');
