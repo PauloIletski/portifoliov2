@@ -334,6 +334,30 @@ test(
           );
         },
       );
+      await context.test('login rate limit survives spoofed client IP headers', async () => {
+        let limited = false;
+        for (let attempt = 0; attempt < 15; attempt++) {
+          const response = await fetch(base + '/api/auth/sign-in/email', {
+            method: 'POST',
+            headers: {
+              Origin: base,
+              'Content-Type': 'application/json',
+              'x-portfolio-client-ip': `198.51.100.${attempt + 1}`,
+              'x-forwarded-for': `198.51.100.${attempt + 1}`,
+            },
+            body: JSON.stringify({ email: 'admin@example.com', password: 'incorrect-password' }),
+          });
+          await response.text();
+          if (response.status === 429) {
+            limited = true;
+            assert(Number(response.headers.get('x-retry-after')) > 0);
+            break;
+          }
+          assert.equal(response.status, 401);
+        }
+        assert(limited, 'Repeated unauthenticated attempts must reach the shared rate limit');
+        assert(await db.collection('rateLimit').countDocuments() > 0);
+      });
       await context.test('snapshot validation rejects corruption before import', async () => {
         const directory = await mkdtemp(path.join(tmpdir(), 'portfolio-migration-'));
         try {

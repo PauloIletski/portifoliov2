@@ -58,7 +58,8 @@ export function createApi() {
   app.all('/api/auth/{*path}', async (request, response) =>
     toNodeHandler(await auth())(request, response),
   );
-  app.use(express.json({ limit: '4mb' }));
+  // Browser clients send plain JSON; reject compressed input before creating a decoder.
+  app.use(express.json({ limit: '4mb', inflate: false }));
   app.get('/api/content/:kind', async (request, response) => {
     const kind = kindSchema.parse(request.params['kind']);
     const db = await database();
@@ -148,6 +149,10 @@ export function createApi() {
     throw new HttpError(404, 'Endpoint não encontrado.');
   });
   const errors: ErrorRequestHandler = (error: unknown, _request, response, _next) => {
+    if (error instanceof Error && 'status' in error && error.status === 415) {
+      response.status(415).json({ message: 'Codificação de conteúdo não suportada.' });
+      return;
+    }
     if (error instanceof HttpError) {
       response.status(error.status).json({ message: error.message });
       return;

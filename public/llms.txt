@@ -1,0 +1,23 @@
+# Paulo Vieira — PV.
+
+> Portfólio profissional de Paulo Vieira, engenheiro de software. / Professional portfolio of Paulo Vieira, software engineer.
+
+Site oficial: https://www.paulovieira.site/. Disponível em português brasileiro e inglês. Consulte as páginas para informações atuais sobre projetos, experiência, habilidades e canais de contato. As traduções ausentes podem apresentar conteúdo em português.
+
+O chat de IA está em desenvolvimento e não representa um canal de atendimento ativo. Este arquivo descreve somente o conteúdo público do portfólio.
+
+## Português
+
+- [Início](https://www.paulovieira.site/): apresentação profissional.
+- [Projetos](https://www.paulovieira.site/projects): soluções, tecnologias e detalhes dos projetos publicados.
+- [Experiência](https://www.paulovieira.site/experience): trajetória profissional em linha do tempo expansível.
+- [Sobre](https://www.paulovieira.site/about): perfil, habilidades e princípios de trabalho.
+- [Contato](https://www.paulovieira.site/contact): canais de contato publicados pelo autor.
+
+## English
+
+- [Home](https://www.paulovieira.site/en/): professional introduction.
+- [Projects](https://www.paulovieira.site/en/projects): published projects, technologies and solution details.
+- [Experience](https://www.paulovieira.site/en/experience): expandable career timeline.
+- [About](https://www.paulovieira.site/en/about): profile, skills and working principles.
+- [Contact](https://www.paulovieira.site/en/contact): contact channels published by the author.
