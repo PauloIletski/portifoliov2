@@ -414,6 +414,22 @@
         <source>Tem uma ideia que podemos construir juntos?</source>
         <target state="translated">Have an idea we could build together?</target>
       </trans-unit>
+      <trans-unit id="aiChat.title" datatype="html">
+        <source>Chat IA</source>
+        <target state="translated">AI chat</target>
+      </trans-unit>
+      <trans-unit id="aiChat.close" datatype="html">
+        <source>Fechar chat</source>
+        <target state="translated">Close chat</target>
+      </trans-unit>
+      <trans-unit id="aiChat.message" datatype="html">
+        <source>Estou trabalhando nisso</source>
+        <target state="translated">I'm working on it</target>
+      </trans-unit>
+      <trans-unit id="aiChat.open" datatype="html">
+        <source>Abrir chat de inteligência artificial</source>
+        <target state="translated">Open AI chat</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
