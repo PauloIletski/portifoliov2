@@ -3,7 +3,8 @@ import { ContentStatus } from './core/data/content-status';
 import { Maintenance } from './features/maintenance';
 import { RouteSlide } from './shared/directives/route-slide';
 import { Location } from '@angular/common';
-import { afterNextRender, Component, computed, DestroyRef, inject, LOCALE_ID } from '@angular/core';
+import { afterNextRender, Component, computed, DestroyRef, inject, isDevMode, LOCALE_ID } from '@angular/core';
+import { inject as injectAnalytics } from '@vercel/analytics';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs';
@@ -28,6 +29,16 @@ export class App {
   private readonly destroyRef = inject(DestroyRef);
   constructor() {
     afterNextRender(() => {
+      injectAnalytics({
+        mode: isDevMode() ? 'development' : 'production',
+        beforeSend: (event) => {
+          const url = new URL(event.url);
+          if (/^\/(?:en\/)?admin(?:\/|$)/.test(url.pathname)) return null;
+          url.search = '';
+          url.hash = '';
+          return { ...event, url: url.href };
+        },
+      });
       let wasAdmin = this.isAdmin();
       const subscription = this.router.events.subscribe((event) => {
         if (!(event instanceof NavigationEnd)) return;
