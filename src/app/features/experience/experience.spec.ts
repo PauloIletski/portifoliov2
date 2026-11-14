@@ -26,15 +26,19 @@ describe('Experience timeline', () => {
     vi.unstubAllGlobals();
   });
 
-  it('shows three labeled mock entries and loads details when clicking a point', async () => {
+  it('shows the first experience expanded and allows collapse from its timeline point', async () => {
     const fixture = TestBed.createComponent(Experience);
     await fixture.whenStable();
     const root: HTMLElement = fixture.nativeElement;
     const buttons = root.querySelectorAll<HTMLButtonElement>('.timeline-trigger');
     expect(buttons.length).toBe(3);
     expect(root.textContent).toContain('Empresa exemplo A');
-    expect(root.querySelector('.entry-content')).toBeNull();
+    expect(root.querySelector('.entry-summary')?.textContent).toBe(EXPERIENCES[0].summary);
+    expect(buttons[0].getAttribute('aria-expanded')).toBe('true');
     press(buttons[0].querySelector<HTMLElement>('.timeline-point')!);
+    await fixture.whenStable();
+    expect(buttons[0].getAttribute('aria-expanded')).toBe('false');
+    press(buttons[0]);
     await fixture.whenStable();
     expect(buttons[0].getAttribute('aria-expanded')).toBe('true');
     expect(root.querySelector('.entry-summary')?.textContent).toBe(EXPERIENCES[0].summary);

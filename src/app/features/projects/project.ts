@@ -10,6 +10,7 @@ export interface Project {
   readonly demoRoute: string;
   readonly demoLabel: string;
   readonly detailsTitle: string;
+  readonly showPreview?: boolean;
   readonly details: readonly { readonly title: string; readonly description: string }[];
   readonly image?: { readonly src: string; readonly width: number; readonly height: number; readonly alt: string };
 }

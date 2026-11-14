@@ -303,8 +303,8 @@
         <target state="translated">Experience</target>
       </trans-unit>
       <trans-unit id="experience.intro" datatype="html">
-        <source>Cada etapa, novas perspectivas. Explore os pontos da trajetória.</source>
-        <target state="translated">Every stage brings new perspectives. Explore the milestones.</target>
+        <source>Minha trajetória, as contribuições e as tecnologias de cada etapa.</source>
+        <target state="translated">My career, contributions and technologies at each stage.</target>
       </trans-unit>
       <trans-unit id="experience.demo" datatype="html">
         <source>Conteúdo demonstrativo: os três registros abaixo são exemplos e não representam meu histórico profissional.</source>

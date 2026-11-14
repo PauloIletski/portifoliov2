@@ -97,6 +97,7 @@ const schemas = {
       demoLabel: text,
       detailsTitle: text,
       details: z.array(detail),
+      showPreview: z.boolean().optional(),
       image: image.optional(),
     })
     .strict(),

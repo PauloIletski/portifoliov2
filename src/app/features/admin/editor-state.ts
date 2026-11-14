@@ -31,6 +31,7 @@ export class EditorState {
   readonly form = new FormRecord<FormControl<string>>({});
   readonly position = new FormControl(0, { nonNullable: true });
   readonly published = new FormControl(false, { nonNullable: true });
+  readonly showPreview = new FormControl(true, { nonNullable: true });
   private image?: { src: string; width: number; height: number };
 
   constructor() {
@@ -98,6 +99,7 @@ export class EditorState {
     );
     this.published.setValue(this.kind() === 'contacts' ? true : (row?.published ?? false));
     this.image = row?.translations['pt-BR']?.['image'] as typeof this.image;
+    this.showPreview.setValue(row?.translations['pt-BR']?.['showPreview'] !== false);
   }
   contactVisible(row: Row): boolean {
     const channels = row.translations['pt-BR']?.['channels'];
@@ -191,6 +193,7 @@ export class EditorState {
         }
         if (field.key !== 'imageAlt') payload[field.key] = decodeField(field, value);
       }
+      if (this.kind() === 'projects') payload['showPreview'] = this.showPreview.value;
       if (this.kind() === 'projects' && this.image) {
         const alt = this.form.controls[locale + ':imageAlt'].value.trim();
         if (this.published.value && locale === 'pt-BR' && !alt) {

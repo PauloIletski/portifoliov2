@@ -55,6 +55,19 @@ describe('Project registration', () => {
     expect(insert).toHaveBeenCalled();
     expect(state.error()).toBe('');
   });
+  it('saves the preview preference in both languages and restores it when editing', async () => {
+    const state = TestBed.runInInjectionContext(() => new EditorState());
+    fill(state);
+    state.showPreview.setValue(false);
+    await state.save();
+    const payload = insert.mock.calls[0][1];
+    expect(payload.translations['pt-BR'].showPreview).toBe(false);
+    expect(payload.translations['en-US'].showPreview).toBe(false);
+    state.edit({ id: 'project', ...payload });
+    expect(state.showPreview.value).toBe(false);
+    state.edit();
+    expect(state.showPreview.value).toBe(true);
+  });
   it('blocks publication with an incomplete detail and keeps the entered fields', async () => {
     const state = TestBed.runInInjectionContext(() => new EditorState());
     fill(state);

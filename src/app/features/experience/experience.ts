@@ -1,6 +1,6 @@
 import { publicContent } from '../../core/data/content';
 import { ContentStatus } from '../../core/data/content-status';
-import { Component, computed, inject, LOCALE_ID, input } from '@angular/core';
+import { Component, computed, inject, LOCALE_ID, input, linkedSignal } from '@angular/core';
 import {
   AccordionContent,
   AccordionGroup,
@@ -30,4 +30,13 @@ export class Experience {
   protected readonly remote = publicContent('experiences');
   protected readonly english = inject(LOCALE_ID).startsWith('en');
   readonly experiences = computed(() => this.supplied() ?? this.remote.data() ?? []);
+  readonly selectedId = linkedSignal<readonly ExperienceEntry[], string | undefined>({
+    source: this.experiences,
+    computation: (entries, previous) =>
+      entries.find((entry) => entry.id === previous?.value)?.id ?? entries[0]?.id,
+  });
+  protected expand(id: string, expanded: boolean): void {
+    if (expanded) this.selectedId.set(id);
+    else if (this.selectedId() === id) this.selectedId.set(undefined);
+  }
 }

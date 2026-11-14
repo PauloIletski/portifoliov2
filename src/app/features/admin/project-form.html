@@ -77,6 +77,7 @@
   </div>
   <section class="project-image" aria-labelledby="image-title">
     <h4 id="image-title">Imagem do projeto</h4>
+    <mat-checkbox [formControl]="state.showPreview">Exibir prévia do projeto</mat-checkbox>
     @if (state.imagePreview(); as src) {
       <img class="image-preview" [src]="src" alt="Prévia da imagem selecionada" /><button
         type="button"
